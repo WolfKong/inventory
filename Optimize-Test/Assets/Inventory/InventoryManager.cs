@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public InventoryInfoPanel InfoPanel;
-    public InventoryItem InventoryItemPrefab;
+    [SerializeField] private InventoryInfoPanel _infoPanel;
+    [SerializeField] private InventoryItem _inventoryItemPrefab;
 
     public GameObject Container;
 
@@ -42,12 +42,12 @@ public class InventoryManager : MonoBehaviour
         // Instantiate items in the Scroll View.
         Items = new List<InventoryItem>();
         foreach (InventoryItemData itemData in ItemDatas) {
-            var newItem = GameObject.Instantiate<InventoryItem>(InventoryItemPrefab);
+            var newItem = GameObject.Instantiate<InventoryItem>(_inventoryItemPrefab);
             newItem.Icon.sprite = Icons[itemData.IconIndex];
             newItem.Name.text = itemData.Name;
             newItem.transform.SetParent(Container.transform);
             newItem.Button.onClick.AddListener(() => { InventoryItemOnClick(newItem, itemData); });
-            Items.Add(newItem);       
+            Items.Add(newItem);
         }
 
         // Select the first item.
@@ -60,7 +60,7 @@ public class InventoryManager : MonoBehaviour
     /// <param name="json">JSON to generate items from. JSON must be an array of InventoryItemData.</param>
     /// <param name="scale">Concats additional copies of the array parsed from json.</param>
     /// <returns>An array of InventoryItemData</returns>
-    private InventoryItemData[] GenerateItemDatas(string json, int scale) 
+    private InventoryItemData[] GenerateItemDatas(string json, int scale)
     {
         var itemDatas = JsonUtility.FromJson<InventoryItemDatas>(json).ItemDatas;
         var finalItemDatas = new InventoryItemData[itemDatas.Length * scale];
@@ -73,11 +73,13 @@ public class InventoryManager : MonoBehaviour
         return finalItemDatas;
     }
 
-    private void InventoryItemOnClick(InventoryItem itemClicked, InventoryItemData itemData) 
+    private void InventoryItemOnClick(InventoryItem itemClicked, InventoryItemData itemData)
     {
         foreach (var item in Items) {
             item.Background.color = Color.white;
         }
         itemClicked.Background.color = Color.red;
+
+        _infoPanel.SetData(itemData);
     }
 }
