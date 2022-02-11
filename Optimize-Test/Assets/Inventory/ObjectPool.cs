@@ -3,40 +3,60 @@ using UnityEngine;
 
 public class ObjectPool
 {
-    public List<GameObject> Items;
+    private GameObject _prefab;
+    private Transform _parent;
+    private List<GameObject> _availableItems;
 
-    private static Vector3 vector3Zero = Vector3.zero;
-
-    public void PopulatePool(GameObject prefab, int size)
+    /// <summary>
+    /// Creates pool items.
+    /// </summary>
+    /// <param name="prefab">Prefab to generate items.</param>
+    /// <param name="parent">Items parent.</param>
+    /// <param name="size">Pool size.</param>
+    public void PopulatePool(GameObject prefab, Transform parent, int size)
     {
-        Items = new List<GameObject>();
+        _prefab = prefab;
+        _parent = parent;
+        _availableItems = new List<GameObject>();
 
         for (var i = 0; i < size; i++)
         {
-            var item = GameObject.Instantiate(prefab);
-            item.gameObject.SetActive(false);
-            Items.Add(item);
+            var item = CreateItem();
+            item.SetActive(false);
+            _availableItems.Add(item);
         }
     }
 
+    private GameObject CreateItem()
+    {
+        return GameObject.Instantiate(_prefab, _parent);
+    }
+
+    /// <summary>
+    /// Gets an object from the pool. If it's empty creates a new oject and returns it.
+    /// </summary>
+    /// <returns>Object from the pool</returns>
     public GameObject GetObject()
     {
-        for (var i = 0; i < Items.Count; i++)
+        if (_availableItems.Count == 0)
         {
-            var item = Items[i];
-            if (!item.activeInHierarchy)
-            {
-                item.SetActive(true);
-                return item;
-            }
+            Debug.LogWarning($"Pool ran out of objects! Creating a new one.");
+            return CreateItem();
         }
-        return null;
+
+        var item = _availableItems[0];
+        item.SetActive(true);
+        _availableItems.RemoveAt(0);
+        return item;
     }
 
+    /// <summary>
+    /// Returns an object to the pool.
+    /// </summary>
+    /// <param name="gameObject">Object being returned.</param>
     public void ReturnObject(GameObject gameObject)
     {
+        _availableItems.Add(gameObject);
         gameObject.SetActive(false);
-        gameObject.transform.SetParent(null);
-        gameObject.transform.localPosition = vector3Zero;
     }
 }

@@ -5,8 +5,10 @@ using System;
 [RequireComponent(typeof(ScrollRect))]
 public class ScrollPool : MonoBehaviour
 {
-    private ScrollRect _scrollRect;
     private RectTransform _content;
+    private GameObject[] _items;
+    private ObjectPool _pool;
+    private Action<GameObject, int> _initializeItem;
 
     private int _itemCount;
     private int _topIndex;
@@ -15,59 +17,60 @@ public class ScrollPool : MonoBehaviour
     private float _cellHeight;
     private float _viewPortHeight;
 
-    private RectTransform[] _items;
-    private ObjectPool _pool;
-    private Action<GameObject, int> _initializeItem;
-
+    /// <summary>
+    /// Set sizes, creates pool of items and displays visible ones.
+    /// </summary>
+    /// <param name="prefab">Prefab to generate items.</param>
+    /// <param name="initializeItem">Action that set's up item data.</param>
+    /// <param name="itemCount">Total item count.</param>
     public void Initialize<T>(T prefab, Action<GameObject, int> initializeItem, int itemCount) where T : Component
     {
-        _scrollRect = GetComponent<ScrollRect>();
-        _scrollRect.onValueChanged.AddListener(OnValueChanged);
-
-        _viewPortHeight = _scrollRect.viewport.rect.height;
-        _content = _scrollRect.content;
+        var scrollRect = GetComponent<ScrollRect>();
+        scrollRect.onValueChanged.AddListener(OnValueChanged);
 
         _itemCount = itemCount;
         _initializeItem = initializeItem;
 
-        _items = new RectTransform[_itemCount];
+        _cellHeight = prefab.GetComponent<RectTransform>().rect.height;
+        _viewPortHeight = scrollRect.viewport.rect.height;
 
-        var prefabRect = prefab.GetComponent<RectTransform>();
-        _cellHeight = prefabRect.rect.height;
-
-        var contentHeight = itemCount * _cellHeight;
-        _content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, contentHeight);
+        _content = scrollRect.content;
+        _content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, itemCount * _cellHeight);
 
         _topIndex = CellIndexForPosition(_content.anchoredPosition.y);
         _bottomIndex = CellIndexForPosition(_content.anchoredPosition.y + _viewPortHeight);
 
         _pool = new ObjectPool();
-        _pool.PopulatePool(prefab.gameObject, _bottomIndex - _topIndex + 2);
+        _pool.PopulatePool(prefab.gameObject, _content, _bottomIndex - _topIndex + 2);
+
+        _items = new GameObject[_itemCount];
 
         for (int i = _topIndex; i <= _bottomIndex; i++)
-        {
             PlaceObjectAt(i);
-        }
     }
 
     private void PlaceObjectAt(int index)
     {
         var item = _pool.GetObject();
-        item.transform.SetParent(_content);
 
         _initializeItem(item, index);
+
         var rectTransform = item.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(0, rectTransform.sizeDelta.y);
-        SetCellPosition(rectTransform, index);
-        _items[index] = rectTransform;
+        rectTransform.anchoredPosition = new Vector2(0, -index * _cellHeight);
+
+        _items[index] = item;
     }
 
-    public void OnValueChanged(Vector2 position)
+    private void OnValueChanged(Vector2 _)
     {
-        OnScroll();
+        UpdateVisibleItems();
     }
 
-    public void OnScroll()
+    /// <summary>
+    /// Removes no longer visible items and adds newly visible ones.
+    /// </summary>
+    private void UpdateVisibleItems()
     {
         var newTopIndex = CellIndexForPosition(_content.anchoredPosition.y);
         var newBottomIndex = CellIndexForPosition(_content.anchoredPosition.y + _viewPortHeight);
@@ -79,17 +82,17 @@ public class ScrollPool : MonoBehaviour
         // Remove no longer visible items
         while (newTopIndex > _topIndex)
         {
-            _pool.ReturnObject(_items[_topIndex].gameObject);
+            _pool.ReturnObject(_items[_topIndex]);
             _topIndex++;
         }
 
         while (newBottomIndex < _bottomIndex)
         {
-            _pool.ReturnObject(_items[_bottomIndex].gameObject);
+            _pool.ReturnObject(_items[_bottomIndex]);
             _bottomIndex--;
         }
 
-        // Add new visible items
+        // Add newly visible items
         while (newTopIndex < _topIndex)
         {
             _topIndex--;
@@ -103,8 +106,10 @@ public class ScrollPool : MonoBehaviour
         }
     }
 
-    private void SetCellPosition(RectTransform rectTransform, int index) =>
-        rectTransform.anchoredPosition = new Vector2(0, -index * _cellHeight);
-
+    /// <summary>
+    /// Returns cell index for given Y position.
+    /// </summary>
+    /// <param name="position">Y position</param>
+    /// <returns>Cell index</returns>
     private int CellIndexForPosition(float position) => Mathf.FloorToInt(position / _cellHeight);
 }
