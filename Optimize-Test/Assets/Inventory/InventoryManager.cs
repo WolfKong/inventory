@@ -33,11 +33,8 @@ public class InventoryManager : MonoBehaviour
     void Start()
     {
         // Clear existing items already in the list.
-        var items = _container.GetComponentsInChildren<InventoryItem>();
-        foreach (InventoryItem item in items)
-        {
-            item.gameObject.transform.SetParent(null);
-        }
+        foreach (InventoryItem item in _container.GetComponentsInChildren<InventoryItem>())
+            Destroy(item.gameObject);
 
         _itemDatas = GenerateItemDatas(ItemJson, ItemGenerateScale);
 
