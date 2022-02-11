@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private InventoryInfoPanel _infoPanel;
     [SerializeField] private InventoryItem _inventoryItemPrefab;
+    [SerializeField] private ScrollPool _scrollPool;
     [SerializeField] private GameObject _container;
 
     [Tooltip(tooltip:"Loads the list using this format.")]
@@ -30,8 +32,10 @@ public class InventoryManager : MonoBehaviour
         public InventoryItemData[] ItemDatas;
     }
 
-    void Start()
+    IEnumerator Start()
     {
+        yield return null;
+
         // Clear existing items already in the list.
         foreach (InventoryItem item in _container.GetComponentsInChildren<InventoryItem>())
             Destroy(item.gameObject);
@@ -40,16 +44,19 @@ public class InventoryManager : MonoBehaviour
 
         // Instantiate items in the Scroll View.
         _items = new List<InventoryItem>();
-        foreach (InventoryItemData itemData in _itemDatas)
+
+        void InitializeItem(GameObject go, int index)
         {
-            var newItem = GameObject.Instantiate<InventoryItem>(_inventoryItemPrefab);
-            newItem.Icon.sprite = Icons[itemData.IconIndex];
-            newItem.Name.text = itemData.Name;
-            newItem.transform.SetParent(_container.transform);
-            newItem.Button.onClick.AddListener(() => { InventoryItemOnClick(newItem, itemData); });
-            newItem.Background.color = Color.white;
-            _items.Add(newItem);
+            var item = go.GetComponent<InventoryItem>();
+            var itemData = _itemDatas[index];
+            item.Icon.sprite = Icons[itemData.IconIndex];
+            item.Name.text = itemData.Name;
+            item.Button.onClick.AddListener(() => { InventoryItemOnClick(item, itemData); });
+            item.Background.color = Color.white;
+            _items.Add(item);
         }
+
+        _scrollPool.Initialize<InventoryItem>(_inventoryItemPrefab, InitializeItem, _itemDatas.Length);
 
         // Select the first item.
         InventoryItemOnClick(_items[0], _itemDatas[0]);
