@@ -697,50 +697,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryItem
       objectReference: {fileID: 0}
-    - target: {fileID: 5135131544143862494, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5135131544143862494, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5135131544143862494, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5135131544143862494, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5135131544143862494, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6704801169160509525, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7831318128446387545, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7831318128446387545, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7831318128446387545, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7831318128446387545, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7831318128446387545, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
 --- !u!224 &860807969272786444 stripped
