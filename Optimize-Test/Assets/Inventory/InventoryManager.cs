@@ -6,8 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private InventoryInfoPanel _infoPanel;
     [SerializeField] private InventoryItem _inventoryItemPrefab;
-
-    public GameObject Container;
+    [SerializeField] private GameObject _container;
 
     [Tooltip(tooltip:"Loads the list using this format.")]
     [Multiline]
@@ -25,33 +24,35 @@ public class InventoryManager : MonoBehaviour
         public InventoryItemData[] ItemDatas;
     }
 
-    private InventoryItemData[] ItemDatas;
+    private InventoryItemData[] _itemDatas;
 
-    private List<InventoryItem> Items;
+    private List<InventoryItem> _items;
 
     void Start()
     {
         // Clear existing items already in the list.
-        var items = Container.GetComponentsInChildren<InventoryItem>();
-        foreach (InventoryItem item in items) {
+        var items = _container.GetComponentsInChildren<InventoryItem>();
+        foreach (InventoryItem item in items)
+        {
             item.gameObject.transform.SetParent(null);
         }
 
-        ItemDatas = GenerateItemDatas(ItemJson, ItemGenerateScale);
+        _itemDatas = GenerateItemDatas(ItemJson, ItemGenerateScale);
 
         // Instantiate items in the Scroll View.
-        Items = new List<InventoryItem>();
-        foreach (InventoryItemData itemData in ItemDatas) {
+        _items = new List<InventoryItem>();
+        foreach (InventoryItemData itemData in _itemDatas)
+        {
             var newItem = GameObject.Instantiate<InventoryItem>(_inventoryItemPrefab);
             newItem.Icon.sprite = Icons[itemData.IconIndex];
             newItem.Name.text = itemData.Name;
-            newItem.transform.SetParent(Container.transform);
+            newItem.transform.SetParent(_container.transform);
             newItem.Button.onClick.AddListener(() => { InventoryItemOnClick(newItem, itemData); });
-            Items.Add(newItem);
+            _items.Add(newItem);
         }
 
         // Select the first item.
-        InventoryItemOnClick(Items[0], ItemDatas[0]);
+        InventoryItemOnClick(_items[0], _itemDatas[0]);
     }
 
     /// <summary>
@@ -64,8 +65,10 @@ public class InventoryManager : MonoBehaviour
     {
         var itemDatas = JsonUtility.FromJson<InventoryItemDatas>(json).ItemDatas;
         var finalItemDatas = new InventoryItemData[itemDatas.Length * scale];
-        for (var i = 0; i < itemDatas.Length; i++) {
-            for (var j = 0; j < scale; j++) {
+        for (var i = 0; i < itemDatas.Length; i++)
+        {
+            for (var j = 0; j < scale; j++)
+            {
                 finalItemDatas[i + j*itemDatas.Length] = itemDatas[i];
             }
         }
@@ -75,7 +78,8 @@ public class InventoryManager : MonoBehaviour
 
     private void InventoryItemOnClick(InventoryItem itemClicked, InventoryItemData itemData)
     {
-        foreach (var item in Items) {
+        foreach (var item in _items)
+        {
             item.Background.color = Color.white;
         }
         itemClicked.Background.color = Color.red;
