@@ -18,15 +18,17 @@ public class InventoryManager : MonoBehaviour
     [Tooltip(tooltip:"Icons referenced by ItemData.IconIndex when instantiating new items.")]
     public Sprite[] Icons;
 
+    private InventoryItem _selectedItem;
+
+    private InventoryItemData[] _itemDatas;
+
+    private List<InventoryItem> _items;
+
     [Serializable]
     private class InventoryItemDatas
     {
         public InventoryItemData[] ItemDatas;
     }
-
-    private InventoryItemData[] _itemDatas;
-
-    private List<InventoryItem> _items;
 
     void Start()
     {
@@ -48,6 +50,7 @@ public class InventoryManager : MonoBehaviour
             newItem.Name.text = itemData.Name;
             newItem.transform.SetParent(_container.transform);
             newItem.Button.onClick.AddListener(() => { InventoryItemOnClick(newItem, itemData); });
+            newItem.Background.color = Color.white;
             _items.Add(newItem);
         }
 
@@ -78,10 +81,10 @@ public class InventoryManager : MonoBehaviour
 
     private void InventoryItemOnClick(InventoryItem itemClicked, InventoryItemData itemData)
     {
-        foreach (var item in _items)
-        {
-            item.Background.color = Color.white;
-        }
+        if (_selectedItem != null)
+            _selectedItem.Background.color = Color.white;
+
+        _selectedItem = itemClicked;
         itemClicked.Background.color = Color.red;
 
         _infoPanel.SetData(itemData);
