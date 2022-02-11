@@ -38,27 +38,26 @@ public class ScrollPool : MonoBehaviour
         var contentHeight = itemCount * _cellHeight;
         _content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, contentHeight);
 
-        var visibleSize = Mathf.CeilToInt(_viewPortHeight / _cellHeight);
-
-        _pool = new ObjectPool();
-        _pool.PopulatePool(prefab.gameObject, visibleSize + 2);
-
-        for (int i = 0; i < visibleSize; i++)
-        {
-            CreateObjectAt(i);
-        }
-
         _topIndex = CellIndexForPosition(_content.anchoredPosition.y);
         _bottomIndex = CellIndexForPosition(_content.anchoredPosition.y + _viewPortHeight);
+
+        _pool = new ObjectPool();
+        _pool.PopulatePool(prefab.gameObject, _bottomIndex - _topIndex + 2);
+
+        for (int i = _topIndex; i <= _bottomIndex; i++)
+        {
+            PlaceObjectAt(i);
+        }
     }
 
-    private void CreateObjectAt(int index)
+    private void PlaceObjectAt(int index)
     {
         var item = _pool.GetObject();
         item.transform.SetParent(_content);
 
         _initializeItem(item, index);
         var rectTransform = item.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(0, rectTransform.sizeDelta.y);
         SetCellPosition(rectTransform, index);
         _items[index] = rectTransform;
     }
@@ -94,13 +93,13 @@ public class ScrollPool : MonoBehaviour
         while (newTopIndex < _topIndex)
         {
             _topIndex--;
-            CreateObjectAt(_topIndex);
+            PlaceObjectAt(_topIndex);
         }
 
         while (newBottomIndex > _bottomIndex)
         {
             _bottomIndex++;
-            CreateObjectAt(_bottomIndex);
+            PlaceObjectAt(_bottomIndex);
         }
     }
 

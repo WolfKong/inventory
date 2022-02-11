@@ -34,6 +34,7 @@ public class InventoryManager : MonoBehaviour
 
     IEnumerator Start()
     {
+        // Wait for Layout Elements first calculation
         yield return null;
 
         // Clear existing items already in the list.
