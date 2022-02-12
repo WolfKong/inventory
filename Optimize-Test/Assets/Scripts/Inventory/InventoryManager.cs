@@ -21,7 +21,7 @@ public class InventoryManager : MonoBehaviour
     public Sprite[] Icons;
 
     private InventoryItem _selectedItem;
-    private InventoryItemData _selectedData;
+    private float _selectedIndex;
 
     private InventoryItemData[] _itemDatas;
 
@@ -48,15 +48,15 @@ public class InventoryManager : MonoBehaviour
             var itemData = _itemDatas[index];
             item.Icon.sprite = Icons[itemData.IconIndex];
             item.Name.text = itemData.Name;
-            item.Button.onClick.AddListener(() => { InventoryItemOnClick(item, itemData); });
-            item.Highlight(itemData == _selectedData);
+            item.Button.onClick.AddListener(() => { InventoryItemOnClick(item, index); });
+            item.Highlight(index == _selectedIndex);
         }
 
         var scrollPool = new ScrollPool<InventoryItem>();
         scrollPool.Initialize(_scrollRect, _inventoryItemPrefab, InitializeItem, _itemDatas.Length);
 
         // Select the first item.
-        InventoryItemOnClick(scrollPool.GetTopItem(), _itemDatas[0]);
+        InventoryItemOnClick(scrollPool.GetTopItem(), 0);
     }
 
     /// <summary>
@@ -80,15 +80,15 @@ public class InventoryManager : MonoBehaviour
         return finalItemDatas;
     }
 
-    private void InventoryItemOnClick(InventoryItem itemClicked, InventoryItemData itemData)
+    private void InventoryItemOnClick(InventoryItem itemClicked, int index)
     {
         if (_selectedItem != null)
             _selectedItem.Highlight(false);
 
-        _selectedData = itemData;
+        _selectedIndex = index;
         _selectedItem = itemClicked;
         itemClicked.Highlight(true);
 
-        _infoPanel.SetData(itemData);
+        _infoPanel.SetData(_itemDatas[index]);
     }
 }
