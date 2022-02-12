@@ -8,4 +8,5 @@ public class InventorySlot : MonoBehaviour
     public Image Icon;
     public TextMeshProUGUI Name;
     public Button Button;
+    public int SelectedIndex = -1;
 }

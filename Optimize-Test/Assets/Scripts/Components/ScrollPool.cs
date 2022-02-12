@@ -57,7 +57,7 @@ public class ScrollPool<T> where T : Component
     /// <summary>
     /// Places all visible ojects.
     /// </summary>
-    public void ResetDisplay()
+    public void PlaceItems()
     {
         _content.anchoredPosition = new Vector2(_content.anchoredPosition.x, 0);
         _scrollRect.StopMovement();

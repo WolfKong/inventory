@@ -9,13 +9,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private InventoryItem _inventoryItemPrefab;
     [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private GameObject _container;
-    [SerializeField] private InventorySlot _rightSlot;
-    [SerializeField] private InventorySlot _leftSlot;
-
-    [Tooltip("Loads the list using this format.")]
-    [SerializeField] private TextAsset _allDataJson;
-    [SerializeField] private TextAsset _leftHandDataJson;
-    [SerializeField] private TextAsset _rightHandDataJson;
+    [SerializeField] private InventorySlotData[] _inventorySlotData;
 
     [Tooltip("This is used in generating the items list. The number of additional copies to concat the list parsed from ItemJson.")]
     [SerializeField] private int _itemGenerateScale = 10;
@@ -25,13 +19,21 @@ public class InventoryManager : MonoBehaviour
 
     private InventoryItemData[] _itemDatas;
     private ScrollPool<InventoryItem> _scrollPool;
+    private InventorySlot _selectedSlot;
     private InventoryItem _selectedItem;
-    private float _selectedIndex;
+    private int _selectedIndex;
 
     [Serializable]
     private class InventoryItemDatas
     {
         public InventoryItemData[] ItemDatas;
+    }
+
+    [Serializable]
+    private class InventorySlotData
+    {
+        public InventorySlot Slot;
+        public TextAsset Json;
     }
 
     IEnumerator Start()
@@ -43,15 +45,16 @@ public class InventoryManager : MonoBehaviour
         foreach (InventoryItem item in _container.GetComponentsInChildren<InventoryItem>())
             Destroy(item.gameObject);
 
-        _rightSlot.Button.onClick.AddListener(() => { ShowList(_rightHandDataJson); });
-        _leftSlot.Button.onClick.AddListener(() => { ShowList(_leftHandDataJson); });
-
-        _itemDatas = GenerateItemDatas(_allDataJson.text, _itemGenerateScale);
+        foreach (var slotData in _inventorySlotData)
+        {
+            var slot = slotData.Slot;
+            slot.Button.onClick.AddListener(() => { InventorySlotOnClick(slot, slotData.Json); });
+        }
 
         _scrollPool = new ScrollPool<InventoryItem>();
         _scrollPool.Initialize(_scrollRect, _inventoryItemPrefab, InitializeItem);
 
-        ShowList(_allDataJson);
+        InventorySlotOnClick(_inventorySlotData[0].Slot, _inventorySlotData[0].Json);
     }
 
     /// <summary>
@@ -63,7 +66,7 @@ public class InventoryManager : MonoBehaviour
         item.Icon.sprite = _icons[itemData.IconIndex];
         item.Name.text = itemData.Name;
         item.Button.onClick.AddListener(() => { InventoryItemOnClick(item, index); });
-        item.Highlight(index == _selectedIndex);
+        item.Highlight(index == _selectedSlot.SelectedIndex);
     }
 
     /// <summary>
@@ -73,14 +76,10 @@ public class InventoryManager : MonoBehaviour
     private void ShowList(TextAsset dataJson)
     {
         _itemDatas = GenerateItemDatas(dataJson.text, _itemGenerateScale);
-        _selectedIndex = -1;
 
         _scrollPool.ClearDisplay();
         _scrollPool.SetItemCount(_itemDatas.Length);
-        _scrollPool.ResetDisplay();
-
-        // Select the first item.
-        InventoryItemOnClick(_scrollPool.GetTopItem(), 0);
+        _scrollPool.PlaceItems();
     }
 
     /// <summary>
@@ -104,15 +103,29 @@ public class InventoryManager : MonoBehaviour
         return finalItemDatas;
     }
 
+    private void InventorySlotOnClick(InventorySlot slot, TextAsset data)
+    {
+        if (_selectedSlot == slot)
+            return;
+
+        _selectedSlot = slot;
+        ShowList(data);
+
+        // Select the first item if none is selected
+        if (slot.SelectedIndex < 0)
+            InventoryItemOnClick(_scrollPool.GetTopItem(), 0);
+    }
+
     private void InventoryItemOnClick(InventoryItem itemClicked, int index)
     {
         if (_selectedItem != null)
             _selectedItem.Highlight(false);
 
-        _selectedIndex = index;
         _selectedItem = itemClicked;
         itemClicked.Highlight(true);
 
         _infoPanel.SetData(_itemDatas[index]);
+        _selectedSlot.SelectedIndex = index;
+        _selectedSlot.Icon.sprite = _icons[_itemDatas[index].IconIndex];
     }
 }
