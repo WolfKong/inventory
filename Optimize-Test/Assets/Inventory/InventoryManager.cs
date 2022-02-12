@@ -50,7 +50,7 @@ public class InventoryManager : MonoBehaviour
             item.Icon.sprite = Icons[itemData.IconIndex];
             item.Name.text = itemData.Name;
             item.Button.onClick.AddListener(() => { InventoryItemOnClick(item, itemData); });
-            item.Background.color = itemData == _selectedData ? Color.red : Color.white;
+            item.Highlight(itemData == _selectedData);
         }
 
         _scrollPool.Initialize<InventoryItem>(_inventoryItemPrefab, InitializeItem, _itemDatas.Length);
@@ -84,11 +84,11 @@ public class InventoryManager : MonoBehaviour
     private void InventoryItemOnClick(InventoryItem itemClicked, InventoryItemData itemData)
     {
         if (_selectedItem != null)
-            _selectedItem.Background.color = Color.white;
+            _selectedItem.Highlight(false);
 
         _selectedData = itemData;
         _selectedItem = itemClicked;
-        itemClicked.Background.color = Color.red;
+        itemClicked.Highlight(true);
 
         _infoPanel.SetData(itemData);
     }
