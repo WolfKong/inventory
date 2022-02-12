@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool
+public class ObjectPool<T> where T : Component
 {
-    private GameObject _prefab;
+    private T _prefab;
     private Transform _parent;
-    private List<GameObject> _availableItems;
+    private List<T> _availableItems;
 
     /// <summary>
     /// Creates pool items.
@@ -13,30 +13,30 @@ public class ObjectPool
     /// <param name="prefab">Prefab to generate items.</param>
     /// <param name="parent">Items parent.</param>
     /// <param name="size">Pool size.</param>
-    public void PopulatePool(GameObject prefab, Transform parent, int size)
+    public void PopulatePool(T prefab, Transform parent, int size)
     {
         _prefab = prefab;
         _parent = parent;
-        _availableItems = new List<GameObject>();
+        _availableItems = new List<T>();
 
         for (var i = 0; i < size; i++)
         {
             var item = CreateItem();
-            item.SetActive(false);
+            item.gameObject.SetActive(false);
             _availableItems.Add(item);
         }
     }
 
-    private GameObject CreateItem()
+    private T CreateItem()
     {
-        return GameObject.Instantiate(_prefab, _parent);
+        return GameObject.Instantiate<T>(_prefab, _parent);
     }
 
     /// <summary>
-    /// Gets an object from the pool. If it's empty creates a new oject and returns it.
+    /// Gets an object from the pool. If it's empty creates a new object and returns it.
     /// </summary>
     /// <returns>Object from the pool</returns>
-    public GameObject GetObject()
+    public T GetObject()
     {
         if (_availableItems.Count == 0)
         {
@@ -45,7 +45,7 @@ public class ObjectPool
         }
 
         var item = _availableItems[0];
-        item.SetActive(true);
+        item.gameObject.SetActive(true);
         _availableItems.RemoveAt(0);
         return item;
     }
@@ -53,10 +53,10 @@ public class ObjectPool
     /// <summary>
     /// Returns an object to the pool.
     /// </summary>
-    /// <param name="gameObject">Object being returned.</param>
-    public void ReturnObject(GameObject gameObject)
+    /// <param name="component">Object being returned.</param>
+    public void ReturnObject(T component)
     {
-        _availableItems.Add(gameObject);
-        gameObject.SetActive(false);
+        _availableItems.Add(component);
+        component.gameObject.SetActive(false);
     }
 }

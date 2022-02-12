@@ -358,17 +358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b69f27d8a4d782040ad95cb4150b05d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &833496522 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1711935844280940763, guid: 9886c2764cd445243a5b5e453490f7c4, type: 3}
-  m_PrefabInstance: {fileID: 860807970712295784}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 269a13971e325af4b96821e03c53948f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &879903438
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +507,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1090443029 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 860807970467855535, guid: 9886c2764cd445243a5b5e453490f7c4, type: 3}
+  m_PrefabInstance: {fileID: 860807970712295784}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1249921965
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,7 +749,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _infoPanel: {fileID: 721236621}
   _inventoryItemPrefab: {fileID: 6081411390659113483, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
-  _scrollPool: {fileID: 833496522}
+  _scrollRect: {fileID: 1090443029}
   _container: {fileID: 466751961}
   ItemJson: "{\r\n    \"ItemDatas\":\r\n    [\r\n        {\r\n            \"Name\":
     \"carton of ice cream\",\r\n            \"Description\": \"A carton of ice cream.\",\r\n           

@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private InventoryInfoPanel _infoPanel;
     [SerializeField] private InventoryItem _inventoryItemPrefab;
-    [SerializeField] private ScrollPool _scrollPool;
+    [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private GameObject _container;
 
     [Tooltip(tooltip:"Loads the list using this format.")]
@@ -43,9 +43,8 @@ public class InventoryManager : MonoBehaviour
         _itemDatas = GenerateItemDatas(ItemJson, ItemGenerateScale);
 
         // Instantiate items in the Scroll View.
-        void InitializeItem(GameObject go, int index)
+        void InitializeItem(InventoryItem item, int index)
         {
-            var item = go.GetComponent<InventoryItem>();
             var itemData = _itemDatas[index];
             item.Icon.sprite = Icons[itemData.IconIndex];
             item.Name.text = itemData.Name;
@@ -53,11 +52,11 @@ public class InventoryManager : MonoBehaviour
             item.Highlight(itemData == _selectedData);
         }
 
-        _scrollPool.Initialize<InventoryItem>(_inventoryItemPrefab, InitializeItem, _itemDatas.Length);
+        var scrollPool = new ScrollPool<InventoryItem>();
+        scrollPool.Initialize(_scrollRect, _inventoryItemPrefab, InitializeItem, _itemDatas.Length);
 
         // Select the first item.
-        var firstItem = _scrollPool.GetTopItem();
-        InventoryItemOnClick(firstItem.GetComponent<InventoryItem>(), _itemDatas[0]);
+        InventoryItemOnClick(scrollPool.GetTopItem(), _itemDatas[0]);
     }
 
     /// <summary>

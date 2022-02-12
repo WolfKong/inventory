@@ -2,13 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-[RequireComponent(typeof(ScrollRect))]
-public class ScrollPool : MonoBehaviour
+public class ScrollPool<T> where T : Component
 {
     private RectTransform _content;
-    private GameObject[] _items;
-    private ObjectPool _pool;
-    private Action<GameObject, int> _initializeItem;
+    private T[] _items;
+    private ObjectPool<T> _pool;
+    private Action<T, int> _initializeItem;
 
     private int _itemCount;
     private int _topIndex;
@@ -23,9 +22,8 @@ public class ScrollPool : MonoBehaviour
     /// <param name="prefab">Prefab to generate items.</param>
     /// <param name="initializeItem">Action that set's up item data.</param>
     /// <param name="itemCount">Total item count.</param>
-    public void Initialize<T>(T prefab, Action<GameObject, int> initializeItem, int itemCount) where T : Component
+    public void Initialize(ScrollRect scrollRect, T prefab, Action<T, int> initializeItem, int itemCount)
     {
-        var scrollRect = GetComponent<ScrollRect>();
         scrollRect.onValueChanged.AddListener(OnValueChanged);
 
         _itemCount = itemCount;
@@ -40,10 +38,10 @@ public class ScrollPool : MonoBehaviour
         _topIndex = CellIndexForPosition(_content.anchoredPosition.y);
         _bottomIndex = CellIndexForPosition(_content.anchoredPosition.y + _viewPortHeight);
 
-        _pool = new ObjectPool();
-        _pool.PopulatePool(prefab.gameObject, _content, _bottomIndex - _topIndex + 2);
+        _pool = new ObjectPool<T>();
+        _pool.PopulatePool(prefab, _content, _bottomIndex - _topIndex + 2);
 
-        _items = new GameObject[_itemCount];
+        _items = new T[_itemCount];
 
         for (int i = _topIndex; i <= _bottomIndex; i++)
             PlaceObjectAt(i);
@@ -53,7 +51,7 @@ public class ScrollPool : MonoBehaviour
     /// Returns scroll topmost visible item.
     /// </summary>
     /// <returns>Topmost visible item</returns>
-    public GameObject GetTopItem()
+    public T GetTopItem()
     {
         return _items[_topIndex];
     }
