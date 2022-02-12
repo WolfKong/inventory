@@ -11,8 +11,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private GameObject _container;
 
     [Tooltip(tooltip:"Loads the list using this format.")]
-    [Multiline]
-    public string ItemJson;
+    [SerializeField] private TextAsset _dataJson;
 
     [Tooltip(tooltip:"This is used in generating the items list. The number of additional copies to concat the list parsed from ItemJson.")]
     public int ItemGenerateScale = 10;
@@ -40,7 +39,7 @@ public class InventoryManager : MonoBehaviour
         foreach (InventoryItem item in _container.GetComponentsInChildren<InventoryItem>())
             Destroy(item.gameObject);
 
-        _itemDatas = GenerateItemDatas(ItemJson, ItemGenerateScale);
+        _itemDatas = GenerateItemDatas(_dataJson.text, ItemGenerateScale);
 
         // Instantiate items in the Scroll View.
         void InitializeItem(InventoryItem item, int index)
