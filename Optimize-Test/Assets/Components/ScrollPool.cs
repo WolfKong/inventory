@@ -49,6 +49,15 @@ public class ScrollPool : MonoBehaviour
             PlaceObjectAt(i);
     }
 
+    /// <summary>
+    /// Returns scroll topmost visible item.
+    /// </summary>
+    /// <returns>Topmost visible item</returns>
+    public GameObject GetTopItem()
+    {
+        return _items[_topIndex];
+    }
+
     private void PlaceObjectAt(int index)
     {
         var item = _pool.GetObject();

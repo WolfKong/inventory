@@ -21,10 +21,9 @@ public class InventoryManager : MonoBehaviour
     public Sprite[] Icons;
 
     private InventoryItem _selectedItem;
+    private InventoryItemData _selectedData;
 
     private InventoryItemData[] _itemDatas;
-
-    private List<InventoryItem> _items;
 
     [Serializable]
     private class InventoryItemDatas
@@ -44,8 +43,6 @@ public class InventoryManager : MonoBehaviour
         _itemDatas = GenerateItemDatas(ItemJson, ItemGenerateScale);
 
         // Instantiate items in the Scroll View.
-        _items = new List<InventoryItem>();
-
         void InitializeItem(GameObject go, int index)
         {
             var item = go.GetComponent<InventoryItem>();
@@ -53,14 +50,14 @@ public class InventoryManager : MonoBehaviour
             item.Icon.sprite = Icons[itemData.IconIndex];
             item.Name.text = itemData.Name;
             item.Button.onClick.AddListener(() => { InventoryItemOnClick(item, itemData); });
-            item.Background.color = Color.white;
-            _items.Add(item);
+            item.Background.color = itemData == _selectedData ? Color.red : Color.white;
         }
 
         _scrollPool.Initialize<InventoryItem>(_inventoryItemPrefab, InitializeItem, _itemDatas.Length);
 
         // Select the first item.
-        InventoryItemOnClick(_items[0], _itemDatas[0]);
+        var firstItem = _scrollPool.GetTopItem();
+        InventoryItemOnClick(firstItem.GetComponent<InventoryItem>(), _itemDatas[0]);
     }
 
     /// <summary>
@@ -89,6 +86,7 @@ public class InventoryManager : MonoBehaviour
         if (_selectedItem != null)
             _selectedItem.Background.color = Color.white;
 
+        _selectedData = itemData;
         _selectedItem = itemClicked;
         itemClicked.Background.color = Color.red;
 
