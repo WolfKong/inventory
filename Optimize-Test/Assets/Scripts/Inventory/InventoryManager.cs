@@ -20,8 +20,6 @@ public class InventoryManager : MonoBehaviour
     private InventoryItemData[] _itemDatas;
     private ScrollPool<InventoryItem> _scrollPool;
     private InventorySlot _selectedSlot;
-    private InventoryItem _selectedItem;
-    private int _selectedIndex;
 
     [Serializable]
     private class InventoryItemDatas
@@ -65,8 +63,14 @@ public class InventoryManager : MonoBehaviour
         var itemData = _itemDatas[index];
         item.Icon.sprite = _icons[itemData.IconIndex];
         item.Name.text = itemData.Name;
+        item.Button.onClick.RemoveAllListeners();
         item.Button.onClick.AddListener(() => { InventoryItemOnClick(item, index); });
+
+        var isSelected = index == _selectedSlot.SelectedIndex;
         item.Highlight(index == _selectedSlot.SelectedIndex);
+
+        if (isSelected)
+            _selectedSlot.SelectedItem = item;
     }
 
     /// <summary>
@@ -118,10 +122,10 @@ public class InventoryManager : MonoBehaviour
 
     private void InventoryItemOnClick(InventoryItem itemClicked, int index)
     {
-        if (_selectedItem != null)
-            _selectedItem.Highlight(false);
+        if (_selectedSlot.SelectedItem != null)
+            _selectedSlot.SelectedItem.Highlight(false);
 
-        _selectedItem = itemClicked;
+        _selectedSlot.SelectedItem = itemClicked;
         itemClicked.Highlight(true);
 
         _infoPanel.SetData(_itemDatas[index]);
