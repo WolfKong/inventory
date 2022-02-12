@@ -9,20 +9,24 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private InventoryItem _inventoryItemPrefab;
     [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private GameObject _container;
+    [SerializeField] private InventorySlot _rightSlot;
+    [SerializeField] private InventorySlot _leftSlot;
 
-    [Tooltip(tooltip:"Loads the list using this format.")]
-    [SerializeField] private TextAsset _dataJson;
+    [Tooltip("Loads the list using this format.")]
+    [SerializeField] private TextAsset _allDataJson;
+    [SerializeField] private TextAsset _leftHandDataJson;
+    [SerializeField] private TextAsset _rightHandDataJson;
 
-    [Tooltip(tooltip:"This is used in generating the items list. The number of additional copies to concat the list parsed from ItemJson.")]
-    public int ItemGenerateScale = 10;
+    [Tooltip("This is used in generating the items list. The number of additional copies to concat the list parsed from ItemJson.")]
+    [SerializeField] private int _itemGenerateScale = 10;
 
-    [Tooltip(tooltip:"Icons referenced by ItemData.IconIndex when instantiating new items.")]
-    public Sprite[] Icons;
-
-    private InventoryItem _selectedItem;
-    private float _selectedIndex;
+    [Tooltip("Icons referenced by ItemData.IconIndex when instantiating new items.")]
+    [SerializeField] private Sprite[] _icons;
 
     private InventoryItemData[] _itemDatas;
+    private ScrollPool<InventoryItem> _scrollPool;
+    private InventoryItem _selectedItem;
+    private float _selectedIndex;
 
     [Serializable]
     private class InventoryItemDatas
@@ -39,23 +43,44 @@ public class InventoryManager : MonoBehaviour
         foreach (InventoryItem item in _container.GetComponentsInChildren<InventoryItem>())
             Destroy(item.gameObject);
 
-        _itemDatas = GenerateItemDatas(_dataJson.text, ItemGenerateScale);
+        _rightSlot.Button.onClick.AddListener(() => { ShowList(_rightHandDataJson); });
+        _leftSlot.Button.onClick.AddListener(() => { ShowList(_leftHandDataJson); });
 
-        // Instantiate items in the Scroll View.
-        void InitializeItem(InventoryItem item, int index)
-        {
-            var itemData = _itemDatas[index];
-            item.Icon.sprite = Icons[itemData.IconIndex];
-            item.Name.text = itemData.Name;
-            item.Button.onClick.AddListener(() => { InventoryItemOnClick(item, index); });
-            item.Highlight(index == _selectedIndex);
-        }
+        _itemDatas = GenerateItemDatas(_allDataJson.text, _itemGenerateScale);
 
-        var scrollPool = new ScrollPool<InventoryItem>();
-        scrollPool.Initialize(_scrollRect, _inventoryItemPrefab, InitializeItem, _itemDatas.Length);
+        _scrollPool = new ScrollPool<InventoryItem>();
+        _scrollPool.Initialize(_scrollRect, _inventoryItemPrefab, InitializeItem);
+
+        ShowList(_allDataJson);
+    }
+
+    /// <summary>
+    /// Sets item data, state and listeners.
+    /// </summary>
+    private void InitializeItem(InventoryItem item, int index)
+    {
+        var itemData = _itemDatas[index];
+        item.Icon.sprite = _icons[itemData.IconIndex];
+        item.Name.text = itemData.Name;
+        item.Button.onClick.AddListener(() => { InventoryItemOnClick(item, index); });
+        item.Highlight(index == _selectedIndex);
+    }
+
+    /// <summary>
+    /// Shows item list from json.
+    /// </summary>
+    /// <param name="dataJson">JSON to generate items from. JSON must be an array of InventoryItemData.</param>
+    private void ShowList(TextAsset dataJson)
+    {
+        _itemDatas = GenerateItemDatas(dataJson.text, _itemGenerateScale);
+        _selectedIndex = -1;
+
+        _scrollPool.ClearDisplay();
+        _scrollPool.SetItemCount(_itemDatas.Length);
+        _scrollPool.ResetDisplay();
 
         // Select the first item.
-        InventoryItemOnClick(scrollPool.GetTopItem(), 0);
+        InventoryItemOnClick(_scrollPool.GetTopItem(), 0);
     }
 
     /// <summary>

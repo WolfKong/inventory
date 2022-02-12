@@ -751,9 +751,11 @@ MonoBehaviour:
   _inventoryItemPrefab: {fileID: 6081411390659113483, guid: 46ded8a5055eb4241b31608b2989c5c4, type: 3}
   _scrollRect: {fileID: 1090443029}
   _container: {fileID: 466751961}
-  _dataJson: {fileID: 4900000, guid: f71be4b6d8a645845a8c3da34aae7ec2, type: 3}
-  ItemGenerateScale: 10
-  Icons:
+  _allDataJson: {fileID: 4900000, guid: f71be4b6d8a645845a8c3da34aae7ec2, type: 3}
+  _leftHandDataJson: {fileID: 4900000, guid: d284e25f2212db346932892aa0cf173e, type: 3}
+  _rightHandDataJson: {fileID: 4900000, guid: adbffe965b66ae54285eaa2b7e5efa04, type: 3}
+  _itemGenerateScale: 10
+  _icons:
   - {fileID: 8809840584394548479, guid: d4035ff8d358f484e9162c2a38bb0fdb, type: 3}
   - {fileID: 9020238771512770864, guid: d4035ff8d358f484e9162c2a38bb0fdb, type: 3}
   - {fileID: -5344612884819071038, guid: d4035ff8d358f484e9162c2a38bb0fdb, type: 3}

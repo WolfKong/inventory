@@ -4,6 +4,7 @@ using System;
 
 public class ScrollPool<T> where T : Component
 {
+    private ScrollRect _scrollRect;
     private RectTransform _content;
     private T[] _items;
     private ObjectPool<T> _pool;
@@ -17,34 +18,72 @@ public class ScrollPool<T> where T : Component
     private float _viewPortHeight;
 
     /// <summary>
-    /// Set sizes, creates pool of items and displays visible ones.
+    /// Set sizes and creates pool.
     /// </summary>
     /// <param name="prefab">Prefab to generate items.</param>
     /// <param name="initializeItem">Action that set's up item data.</param>
     /// <param name="itemCount">Total item count.</param>
-    public void Initialize(ScrollRect scrollRect, T prefab, Action<T, int> initializeItem, int itemCount)
+    public void Initialize(ScrollRect scrollRect, T prefab, Action<T, int> initializeItem)
     {
-        scrollRect.onValueChanged.AddListener(OnValueChanged);
-
-        _itemCount = itemCount;
         _initializeItem = initializeItem;
+        _scrollRect = scrollRect;
+        _content = _scrollRect.content;
+
+        _scrollRect.onValueChanged.AddListener(OnValueChanged);
 
         _cellHeight = prefab.GetComponent<RectTransform>().rect.height;
-        _viewPortHeight = scrollRect.viewport.rect.height;
-
-        _content = scrollRect.content;
-        _content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, itemCount * _cellHeight);
+        _viewPortHeight = _scrollRect.viewport.rect.height;
 
         _topIndex = CellIndexForPosition(_content.anchoredPosition.y);
         _bottomIndex = CellIndexForPosition(_content.anchoredPosition.y + _viewPortHeight);
 
         _pool = new ObjectPool<T>();
         _pool.PopulatePool(prefab, _content, _bottomIndex - _topIndex + 2);
+    }
+
+    /// <summary>
+    /// Set item count and content size.
+    /// </summary>
+    /// <param name="itemCount">Total item count.</param>
+    public void SetItemCount(int itemCount)
+    {
+        _itemCount = itemCount;
 
         _items = new T[_itemCount];
 
+        _content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, itemCount * _cellHeight);
+    }
+
+    /// <summary>
+    /// Places all visible ojects.
+    /// </summary>
+    public void ResetDisplay()
+    {
+        _content.anchoredPosition = new Vector2(_content.anchoredPosition.x, 0);
+        _scrollRect.StopMovement();
+
+        _topIndex = CellIndexForPosition(_content.anchoredPosition.y);
+        _bottomIndex = CellIndexForPosition(_content.anchoredPosition.y + _viewPortHeight);
+
         for (int i = _topIndex; i <= _bottomIndex; i++)
             PlaceObjectAt(i);
+    }
+
+    /// <summary>
+    /// Returns all objects to pool
+    /// </summary>
+    public void ClearDisplay()
+    {
+        if (_items == null)
+            return;
+
+        foreach (var item in _items)
+        {
+            if (item != null)
+            {
+                _pool.ReturnObject(item);
+            }
+        }
     }
 
     /// <summary>
@@ -90,12 +129,14 @@ public class ScrollPool<T> where T : Component
         while (newTopIndex > _topIndex)
         {
             _pool.ReturnObject(_items[_topIndex]);
+            _items[_topIndex] = null;
             _topIndex++;
         }
 
         while (newBottomIndex < _bottomIndex)
         {
             _pool.ReturnObject(_items[_bottomIndex]);
+            _items[_bottomIndex] = null;
             _bottomIndex--;
         }
 
