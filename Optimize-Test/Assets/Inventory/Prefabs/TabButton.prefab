@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 057f3423c3c55274a896e84077a2ee58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Background: {fileID: 2452410862931605328}
+  _background: {fileID: 2452410862931605328}
   Label: {fileID: 6306273850279108946}
   Button: {fileID: 8549860686758488140}
 --- !u!114 &8396757460461872623

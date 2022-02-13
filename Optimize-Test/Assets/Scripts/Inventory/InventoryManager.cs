@@ -136,6 +136,8 @@ public class InventoryManager : MonoBehaviour
         // Select the first item if none is selected
         if (slot.SelectedIndex < 0)
             InventoryItemOnClick(_scrollPool.GetTopItem(), 0);
+        else
+            _infoPanel.SetData(_itemDatas[slot.SelectedIndex]);
     }
 
     private void InventoryItemOnClick(InventoryItem itemClicked, int index)
