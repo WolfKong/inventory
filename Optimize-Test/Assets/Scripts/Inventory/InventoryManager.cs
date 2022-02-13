@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,10 +20,9 @@ public class InventoryManager : MonoBehaviour
     [Tooltip("Icons referenced by ItemData.IconIndex when instantiating new items.")]
     [SerializeField] private Sprite[] _icons;
 
-    private InventoryItemData[] _itemDatas;
+    private Dictionary<InventorySlot, InventoryItemData[]> _itemDatas;
     private ScrollPool<InventoryItem> _scrollPool;
     private InventorySlot _selectedSlot;
-    private TabButton _selectedTab;
 
     [Serializable]
     private class InventoryItemDatas
@@ -50,21 +50,25 @@ public class InventoryManager : MonoBehaviour
         foreach (TabButton tab in _tabsParent.GetComponentsInChildren<TabButton>())
             Destroy(tab.gameObject);
 
+        _itemDatas = new Dictionary<InventorySlot, InventoryItemData[]>();
+
         foreach (var slotData in _inventorySlotData)
         {
             var slot = slotData.Slot;
-            slot.Button.onClick.AddListener(() => { InventorySlotOnClick(slot, slotData.Json); });
+            slot.Button.onClick.AddListener(() => { InventorySlotOnClick(slot); });
 
             var tab = Instantiate<TabButton>(_tabPrefab, _tabsParent);
             tab.Label.text = slotData.Json.name;
-            tab.Button.onClick.AddListener(() => { InventorySlotOnClick(slot, slotData.Json); });
+            tab.Button.onClick.AddListener(() => { InventorySlotOnClick(slot); });
             slot.Tab = tab;
+
+            _itemDatas[slot] = GenerateItemDatas(slotData.Json.text, _itemGenerateScale);
         }
 
         _scrollPool = new ScrollPool<InventoryItem>();
         _scrollPool.Initialize(_scrollRect, _inventoryItemPrefab, InitializeItem);
 
-        InventorySlotOnClick(_inventorySlotData[0].Slot, _inventorySlotData[0].Json);
+        InventorySlotOnClick(_inventorySlotData[0].Slot);
     }
 
     /// <summary>
@@ -72,31 +76,17 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     private void InitializeItem(InventoryItem item, int index)
     {
-        var itemData = _itemDatas[index];
+        var itemData = _itemDatas[_selectedSlot][index];
         item.Icon.sprite = _icons[itemData.IconIndex];
         item.Name.text = itemData.Name;
         item.Button.onClick.RemoveAllListeners();
         item.Button.onClick.AddListener(() => { InventoryItemOnClick(item, index); });
 
         var isSelected = index == _selectedSlot.SelectedIndex;
-        item.Highlight(index == _selectedSlot.SelectedIndex);
+        item.Highlight(isSelected);
 
         if (isSelected)
             _selectedSlot.SelectedItem = item;
-    }
-
-    /// <summary>
-    /// Shows item list from json.
-    /// </summary>
-    /// <param name="dataJson">JSON to generate items from. JSON must be an array of InventoryItemData.</param>
-    /// <param name="index">Index of selected cell.</param>
-    private void ShowList(TextAsset dataJson, int index)
-    {
-        _itemDatas = GenerateItemDatas(dataJson.text, _itemGenerateScale);
-
-        _scrollPool.ClearDisplay();
-        _scrollPool.SetItemCount(_itemDatas.Length);
-        _scrollPool.PlaceItems(index);
     }
 
     /// <summary>
@@ -120,7 +110,7 @@ public class InventoryManager : MonoBehaviour
         return finalItemDatas;
     }
 
-    private void InventorySlotOnClick(InventorySlot slot, TextAsset data)
+    private void InventorySlotOnClick(InventorySlot slot)
     {
         if (_selectedSlot == slot)
             return;
@@ -128,16 +118,18 @@ public class InventoryManager : MonoBehaviour
         if (_selectedSlot != null)
             _selectedSlot.Tab.Highlight(false);
 
-        slot.Tab.Highlight(true);
-
         _selectedSlot = slot;
-        ShowList(data, slot.SelectedIndex);
+        _selectedSlot.Tab.Highlight(true);
+
+        _scrollPool.ClearDisplay();
+        _scrollPool.SetItemCount(_itemDatas[_selectedSlot].Length);
+        _scrollPool.PlaceItems(slot.SelectedIndex);
 
         // Select the first item if none is selected
         if (slot.SelectedIndex < 0)
             InventoryItemOnClick(_scrollPool.GetTopItem(), 0);
         else
-            _infoPanel.SetData(_itemDatas[slot.SelectedIndex]);
+            _infoPanel.SetData(_itemDatas[_selectedSlot][slot.SelectedIndex]);
     }
 
     private void InventoryItemOnClick(InventoryItem itemClicked, int index)
@@ -148,8 +140,9 @@ public class InventoryManager : MonoBehaviour
         _selectedSlot.SelectedItem = itemClicked;
         itemClicked.Highlight(true);
 
-        _infoPanel.SetData(_itemDatas[index]);
+        var itemData = _itemDatas[_selectedSlot][index];
+        _infoPanel.SetData(itemData);
         _selectedSlot.SelectedIndex = index;
-        _selectedSlot.Icon.sprite = _icons[_itemDatas[index].IconIndex];
+        _selectedSlot.Icon.sprite = _icons[itemData.IconIndex];
     }
 }
