@@ -10,4 +10,5 @@ public class InventorySlot : MonoBehaviour
     public Button Button;
     public int SelectedIndex = -1;
     public InventoryItem SelectedItem;
+    public TabButton Tab;
 }

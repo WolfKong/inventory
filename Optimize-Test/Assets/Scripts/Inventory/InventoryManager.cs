@@ -7,6 +7,8 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private InventoryInfoPanel _infoPanel;
     [SerializeField] private InventoryItem _inventoryItemPrefab;
+    [SerializeField] private TabButton _tabPrefab;
+    [SerializeField] private Transform _tabsParent;
     [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private GameObject _container;
     [SerializeField] private InventorySlotData[] _inventorySlotData;
@@ -20,6 +22,7 @@ public class InventoryManager : MonoBehaviour
     private InventoryItemData[] _itemDatas;
     private ScrollPool<InventoryItem> _scrollPool;
     private InventorySlot _selectedSlot;
+    private TabButton _selectedTab;
 
     [Serializable]
     private class InventoryItemDatas
@@ -43,10 +46,19 @@ public class InventoryManager : MonoBehaviour
         foreach (InventoryItem item in _container.GetComponentsInChildren<InventoryItem>())
             Destroy(item.gameObject);
 
+        // Clear existing tabs already in the list.
+        foreach (TabButton tab in _tabsParent.GetComponentsInChildren<TabButton>())
+            Destroy(tab.gameObject);
+
         foreach (var slotData in _inventorySlotData)
         {
             var slot = slotData.Slot;
             slot.Button.onClick.AddListener(() => { InventorySlotOnClick(slot, slotData.Json); });
+
+            var tab = Instantiate<TabButton>(_tabPrefab, _tabsParent);
+            tab.Label.text = slotData.Json.name;
+            tab.Button.onClick.AddListener(() => { InventorySlotOnClick(slot, slotData.Json); });
+            slot.Tab = tab;
         }
 
         _scrollPool = new ScrollPool<InventoryItem>();
@@ -111,6 +123,11 @@ public class InventoryManager : MonoBehaviour
     {
         if (_selectedSlot == slot)
             return;
+
+        if (_selectedSlot != null)
+            _selectedSlot.Tab.Highlight(false);
+
+        slot.Tab.Highlight(true);
 
         _selectedSlot = slot;
         ShowList(data);
