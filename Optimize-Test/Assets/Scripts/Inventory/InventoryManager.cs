@@ -89,13 +89,14 @@ public class InventoryManager : MonoBehaviour
     /// Shows item list from json.
     /// </summary>
     /// <param name="dataJson">JSON to generate items from. JSON must be an array of InventoryItemData.</param>
-    private void ShowList(TextAsset dataJson)
+    /// <param name="index">Index of selected cell.</param>
+    private void ShowList(TextAsset dataJson, int index)
     {
         _itemDatas = GenerateItemDatas(dataJson.text, _itemGenerateScale);
 
         _scrollPool.ClearDisplay();
         _scrollPool.SetItemCount(_itemDatas.Length);
-        _scrollPool.PlaceItems();
+        _scrollPool.PlaceItems(index);
     }
 
     /// <summary>
@@ -130,7 +131,7 @@ public class InventoryManager : MonoBehaviour
         slot.Tab.Highlight(true);
 
         _selectedSlot = slot;
-        ShowList(data);
+        ShowList(data, slot.SelectedIndex);
 
         // Select the first item if none is selected
         if (slot.SelectedIndex < 0)

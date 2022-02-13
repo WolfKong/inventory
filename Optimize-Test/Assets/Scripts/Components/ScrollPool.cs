@@ -55,11 +55,21 @@ public class ScrollPool<T> where T : Component
     }
 
     /// <summary>
-    /// Places all visible ojects.
+    /// Places all objects near given index.
     /// </summary>
-    public void PlaceItems()
+    /// <param name="index">Index of selected cell.</param>
+    public void PlaceItems(int index)
     {
-        _content.anchoredPosition = new Vector2(_content.anchoredPosition.x, 0);
+        var contentSize = _content.sizeDelta.y;
+        // Targeting index - 2 to show some previous items
+        var targetPosition = (index - 2) * _cellHeight;
+
+        // Avoid trying to scroll lower or higher than allowed
+        var position = Mathf.Min(targetPosition, contentSize - _viewPortHeight);
+        position = Mathf.Max(targetPosition, 0);
+
+        _content.anchoredPosition = new Vector2(_content.anchoredPosition.x, position);
+
         _scrollRect.StopMovement();
 
         _topIndex = CellIndexForPosition(_content.anchoredPosition.y);
