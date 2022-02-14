@@ -1,11 +1,10 @@
 using UnityEngine;
-using TMPro;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class InventoryCharacterPanel : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI[] _statsTotals;
     [SerializeField] private InventorySlot[] _slots;
     [SerializeField] private StatsText _statsTextPrefab;
     [SerializeField] private Transform _statsTextParent;
@@ -16,7 +15,7 @@ public class InventoryCharacterPanel : MonoBehaviour
     public event Action Optimize;
 
     private Dictionary<InventoryCategory, InventorySlot> _slotsBycategory;
-    private StatsText[] _stats;
+    private StatsText[] _statsTexts;
 
     private void Awake()
     {
@@ -32,18 +31,20 @@ public class InventoryCharacterPanel : MonoBehaviour
             slot.Button.onClick.AddListener(() => { ClickedSlot?.Invoke(slot.Category); });
         }
 
+        // Creates a statsText for each name and one more for their sum
         var names = StatsNames.Names;
-        _stats = new StatsText[names.Length];
+        _statsTexts = new StatsText[names.Length + 1];
 
-        for (int i = 0; i < names.Length; i++)
+        for (int i = 0; i <= names.Length; i++)
         {
             var statsText = Instantiate(_statsTextPrefab, _statsTextParent);
-            statsText.Name.text = names[i].ToString();
+            var name = i < names.Length ? names[i].ToString() : "Sum";
+            statsText.Name.text = $"{name}:";
 
-            _stats[i] = statsText;
+            _statsTexts[i] = statsText;
 
             var topButton = Instantiate<TabButton>(_topButtonsPrefab, _topButtonsParent);
-            topButton.Label.text = $"Optimize {names[i]}";
+            topButton.Label.text = $"Optimize {name}";
             topButton.Index = i;
             topButton.Button.onClick.AddListener(() => { OptimizeStats(topButton.Index); });
         }
@@ -59,6 +60,8 @@ public class InventoryCharacterPanel : MonoBehaviour
 
     private void OptimizeStats(int statsIndex)
     {
+        var optimizeSum = statsIndex >= StatsNames.Names.Length;
+
         foreach (var category in _slotsBycategory.Keys)
         {
             var itemsData = category.ItemsData;
@@ -68,9 +71,11 @@ public class InventoryCharacterPanel : MonoBehaviour
             for (int i = 0; i < itemsData.Length; i++)
             {
                 var item = itemsData[i];
-                if (item.Stats[statsIndex] > maxValue)
+                var value = optimizeSum ? item.Stats.Sum() : item.Stats[statsIndex];
+
+                if (value > maxValue)
                 {
-                    maxValue = item.Stats[statsIndex];
+                    maxValue = value;
                     maxIndex = i;
                 }
             }
@@ -83,7 +88,7 @@ public class InventoryCharacterPanel : MonoBehaviour
 
     private void UpdateTotalStats()
     {
-        var totals = new int[_stats.Length];
+        var totals = new int[_statsTexts.Length];
 
         foreach (var category in _slotsBycategory.Keys)
         {
@@ -95,7 +100,9 @@ public class InventoryCharacterPanel : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < _statsTotals.Length; i++)
-            _stats[i].Value.text = $"{totals[i]}";
+        for (int i = 0; i < _statsTexts.Length - 1; i++)
+            _statsTexts[i].Value.text = $"{totals[i]}";
+
+        _statsTexts[_statsTexts.Length - 1].Value.text = $"{totals.Sum()}";
     }
 }
