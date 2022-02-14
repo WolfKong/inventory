@@ -92,12 +92,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
+  m_fontSize: 34
   m_fontSizeBase: 32
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 36
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -172,7 +172,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 170, y: 170}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8459925955989333008
 CanvasRenderer:
@@ -238,12 +238,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de96ee6817ceac24786957b0996856d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Background: {fileID: 0}
   Icon: {fileID: 485794824655934588}
-  Name: {fileID: 5733568773937097701}
   Button: {fileID: 1065724856086132388}
   SelectedIndex: -1
   SelectedItem: {fileID: 0}
+  Tab: {fileID: 0}
 --- !u!1 &8894750013035250200
 GameObject:
   m_ObjectHideFlags: 0
