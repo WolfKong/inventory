@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private InventoryInfoPanel _infoPanel;
+    [SerializeField] private InventoryCharacterPanel _characterPanel;
     [SerializeField] private InventoryItem _inventoryItemPrefab;
     [SerializeField] private TabButton _tabPrefab;
     [SerializeField] private Transform _tabsParent;
     [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private GameObject _container;
-    [SerializeField] private InventorySlot[] _slots;
     [SerializeField] private InventoryCategory _startingCategory;
     [SerializeField] private InventoryCategory[] _inventoryCategories;
 
@@ -24,7 +24,6 @@ public class InventoryManager : MonoBehaviour
 
     private Dictionary<InventoryCategory, InventoryItemData[]> _itemsDataByCategory;
     private Dictionary<InventoryCategory, TabButton> _tabsByCategory;
-    private Dictionary<InventoryCategory, InventorySlot> _slotsBycategory;
     private ScrollPool<InventoryItem> _scrollPool;
     private InventoryCategory _selectedCategory;
     private InventoryItem _selectedItem;
@@ -50,13 +49,8 @@ public class InventoryManager : MonoBehaviour
 
         _itemsDataByCategory = new Dictionary<InventoryCategory, InventoryItemData[]>();
         _tabsByCategory = new Dictionary<InventoryCategory, TabButton>();
-        _slotsBycategory = new Dictionary<InventoryCategory, InventorySlot>();
 
-        foreach (var slot in _slots)
-        {
-            _slotsBycategory[slot.Category] = slot;
-            slot.Button.onClick.AddListener(() => { SelectCategory(slot.Category); });
-        }
+        _characterPanel.ClickedSlot += SelectCategory;
 
         foreach (var category in _inventoryCategories)
         {
@@ -72,6 +66,11 @@ public class InventoryManager : MonoBehaviour
         _scrollPool.Initialize(_scrollRect, _inventoryItemPrefab, InitializeItem);
 
         SelectCategory(_startingCategory);
+    }
+
+    private void OnDestroy()
+    {
+        _characterPanel.ClickedSlot -= SelectCategory;
     }
 
     /// <summary>
@@ -153,6 +152,6 @@ public class InventoryManager : MonoBehaviour
         var itemData = _itemsDataByCategory[_selectedCategory][index];
         _infoPanel.SetData(itemData);
         _selectedCategory.SelectedIndex = index;
-        _slotsBycategory[_selectedCategory].Icon.sprite = _icons[itemData.IconIndex];
+        _characterPanel.UpdateCategory(_selectedCategory, _icons[itemData.IconIndex]);
     }
 }

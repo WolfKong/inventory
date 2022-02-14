@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RightHandtems
   m_EditorClassIdentifier: 
   Name: Right Hand
-  DataJson: {fileID: 4900000, guid: adbffe965b66ae54285eaa2b7e5efa04, type: 3}
+  ItemsDataJson: {fileID: 4900000, guid: adbffe965b66ae54285eaa2b7e5efa04, type: 3}

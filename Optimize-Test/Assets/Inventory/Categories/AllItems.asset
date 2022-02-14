@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AllItems
   m_EditorClassIdentifier: 
   Name: All
-  DataJson: {fileID: 4900000, guid: f71be4b6d8a645845a8c3da34aae7ec2, type: 3}
+  ItemsDataJson: {fileID: 4900000, guid: f71be4b6d8a645845a8c3da34aae7ec2, type: 3}
