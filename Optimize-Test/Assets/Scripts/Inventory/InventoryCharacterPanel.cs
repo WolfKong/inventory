@@ -12,10 +12,11 @@ public class InventoryCharacterPanel : MonoBehaviour
     [SerializeField] private Transform _topButtonsParent;
 
     public event Action<InventoryCategory> ClickedSlot;
-    public event Action Optimize;
+    public event Action RanOptimization;
 
     private Dictionary<InventoryCategory, InventorySlot> _slotsBycategory;
     private StatsText[] _statsTexts;
+    private StatsText _sumText;
 
     private void Awake()
     {
@@ -31,23 +32,32 @@ public class InventoryCharacterPanel : MonoBehaviour
             slot.Button.onClick.AddListener(() => { ClickedSlot?.Invoke(slot.Category); });
         }
 
-        // Creates a statsText for each name and one more for their sum
+        // Creates a statsText and topButton for each name and one more for their sum
         var names = StatsNames.Names;
-        _statsTexts = new StatsText[names.Length + 1];
+        _statsTexts = new StatsText[names.Length];
 
-        for (int i = 0; i <= names.Length; i++)
-        {
-            var statsText = Instantiate(_statsTextPrefab, _statsTextParent);
-            var name = i < names.Length ? names[i].ToString() : "Sum";
-            statsText.Name.text = $"{name}:";
+        for (int i = 0; i < names.Length; i++)
+            _statsTexts[i] = CreateStatsText(i, names[i]);
 
-            _statsTexts[i] = statsText;
+        _sumText = CreateStatsText(-1, "Sum", true);
+    }
 
-            var topButton = Instantiate<TabButton>(_topButtonsPrefab, _topButtonsParent);
-            topButton.Label.text = $"Optimize {name}";
-            topButton.Index = i;
-            topButton.Button.onClick.AddListener(() => { OptimizeStats(topButton.Index); });
-        }
+    /// <summary>
+    /// Creates a statsText and topButton using given parameters.
+    /// </summary>
+    /// <param name="index">Index of stats.</param>
+    /// <param name="name">Name of stats.</param>
+    /// <param name="isSum">Are components for displaying sum of stats?</param>
+    private StatsText CreateStatsText(int index, string name, bool isSum = false)
+    {
+        var statsText = Instantiate(_statsTextPrefab, _statsTextParent);
+        statsText.Name.text = $"{name}:";
+
+        var topButton = Instantiate<TabButton>(_topButtonsPrefab, _topButtonsParent);
+        topButton.Label.text = $"Optimize {name}";
+        topButton.Button.onClick.AddListener(() => { OptimizeStats(index, isSum); });
+
+        return statsText;
     }
 
     public void UpdateCategory(InventoryCategory category, InventoryItemData itemData, Sprite[] _icons)
@@ -55,13 +65,16 @@ public class InventoryCharacterPanel : MonoBehaviour
         if (_slotsBycategory.ContainsKey(category))
             _slotsBycategory[category].Icon.sprite = _icons[itemData.IconIndex];
 
-        UpdateTotalStats();
+        UpdateStats();
     }
 
-    private void OptimizeStats(int statsIndex)
+    /// <summary>
+    /// Calculates which are the best items to maximize given stats or stats sum.
+    /// </summary>
+    /// <param name="statsIndex">Index of stats to be optimized.</param>
+    /// <param name="optimizeSum">Should optimize total of stats sum.</param>
+    private void OptimizeStats(int statsIndex, bool optimizeSum)
     {
-        var optimizeSum = statsIndex >= StatsNames.Names.Length;
-
         foreach (var category in _slotsBycategory.Keys)
         {
             var itemsData = category.ItemsData;
@@ -83,10 +96,13 @@ public class InventoryCharacterPanel : MonoBehaviour
             category.SelectedIndex = maxIndex;
         }
 
-        Optimize?.Invoke();
+        RanOptimization?.Invoke();
     }
 
-    private void UpdateTotalStats()
+    /// <summary>
+    /// Sums each stats for all categories and displays them.
+    /// </summary>
+    private void UpdateStats()
     {
         var totals = new int[_statsTexts.Length];
 
@@ -100,9 +116,9 @@ public class InventoryCharacterPanel : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < _statsTexts.Length - 1; i++)
+        for (int i = 0; i < _statsTexts.Length; i++)
             _statsTexts[i].Value.text = $"{totals[i]}";
 
-        _statsTexts[_statsTexts.Length - 1].Value.text = $"{totals.Sum()}";
+        _sumText.Value.text = $"{totals.Sum()}";
     }
 }

@@ -24,6 +24,10 @@ public class InventoryInfoPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets information of given item.
+    /// </summary>
+    /// <param name="data">Data to be displayed.</param>
     public void SetData(InventoryItemData data)
     {
         _name.text = data.Name;

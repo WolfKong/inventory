@@ -39,7 +39,7 @@ public class InventoryManager : MonoBehaviour
             Destroy(tab.gameObject);
 
         _characterPanel.ClickedSlot += SelectCategory;
-        _characterPanel.Optimize += OnOptimization;
+        _characterPanel.RanOptimization += UpdateAllDisplays;
 
         _tabsByCategory = new Dictionary<InventoryCategory, TabButton>();
 
@@ -62,7 +62,7 @@ public class InventoryManager : MonoBehaviour
     private void OnDestroy()
     {
         _characterPanel.ClickedSlot -= SelectCategory;
-        _characterPanel.Optimize -= OnOptimization;
+        _characterPanel.RanOptimization -= UpdateAllDisplays;
     }
 
     /// <summary>
@@ -86,7 +86,7 @@ public class InventoryManager : MonoBehaviour
     /// <summary>
     /// Updates list, characterPanel and infoPanel
     /// </summary>
-    private void OnOptimization()
+    private void UpdateAllDisplays()
     {
         foreach (var category in _inventoryCategories)
             _characterPanel.UpdateCategory(category, category.SelectedData, _icons);
