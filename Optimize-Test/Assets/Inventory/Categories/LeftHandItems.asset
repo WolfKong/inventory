@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LeftHandItems
   m_EditorClassIdentifier: 
   Name: Left Hand
-  ItemsDataJson: {fileID: 4900000, guid: d284e25f2212db346932892aa0cf173e, type: 3}
+  _itemsDataJson: {fileID: 4900000, guid: d284e25f2212db346932892aa0cf173e, type: 3}
