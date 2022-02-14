@@ -6,13 +6,11 @@ public class ScrollPool<T> where T : Component
 {
     private ScrollRect _scrollRect;
     private RectTransform _content;
-    private T[] _items;
+    private T[] _items = new T[0];
     private ObjectPool<T> _pool;
     private Action<T, int> _initializeItem;
 
     private int _itemCount;
-    private int _topIndex;
-    private int _bottomIndex;
 
     private float _cellHeight;
     private float _viewPortHeight;
@@ -20,25 +18,24 @@ public class ScrollPool<T> where T : Component
     /// <summary>
     /// Set sizes and creates pool.
     /// </summary>
+    /// <param name="scrollRect">ScrollRect where pool will be created.</param>
     /// <param name="prefab">Prefab to generate items.</param>
-    /// <param name="initializeItem">Action that set's up item data.</param>
-    /// <param name="itemCount">Total item count.</param>
+    /// <param name="initializeItem">Action ran when making item visible.</param>
     public void Initialize(ScrollRect scrollRect, T prefab, Action<T, int> initializeItem)
     {
-        _initializeItem = initializeItem;
         _scrollRect = scrollRect;
         _content = _scrollRect.content;
+        _initializeItem = initializeItem;
 
         _scrollRect.onValueChanged.AddListener(OnValueChanged);
 
         _cellHeight = prefab.GetComponent<RectTransform>().rect.height;
         _viewPortHeight = _scrollRect.viewport.rect.height;
 
-        _topIndex = CellIndexForPosition(_content.anchoredPosition.y);
-        _bottomIndex = CellIndexForPosition(_content.anchoredPosition.y + _viewPortHeight);
+        var visibleCells = Mathf.CeilToInt(_viewPortHeight / _cellHeight) + 1;
 
         _pool = new ObjectPool<T>();
-        _pool.PopulatePool(prefab, _content, _bottomIndex - _topIndex + 2);
+        _pool.PopulatePool(prefab, _content, visibleCells);
     }
 
     /// <summary>
@@ -55,28 +52,23 @@ public class ScrollPool<T> where T : Component
     }
 
     /// <summary>
-    /// Places all objects near given index.
+    /// Places all items near given index.
     /// </summary>
     /// <param name="index">Index of selected cell.</param>
-    public void PlaceItems(int index)
+    /// <param name="offset">How many previous cells should be visible.</param>
+    public void PlaceItems(int index, int offset = 2)
     {
-        var contentSize = _content.sizeDelta.y;
-        // Targeting index - 2 to show some previous items
-        var targetPosition = (index - 2) * _cellHeight;
+        var targetPosition = (index - offset) * _cellHeight;
 
         // Avoid trying to scroll lower or higher than allowed
-        var position = Mathf.Min(targetPosition, contentSize - _viewPortHeight);
-        position = Mathf.Max(targetPosition, 0);
+        var position = Mathf.Min(targetPosition, _content.rect.height - _viewPortHeight);
+        position = Mathf.Max(position, 0);
 
         _content.anchoredPosition = new Vector2(_content.anchoredPosition.x, position);
 
         _scrollRect.StopMovement();
 
-        _topIndex = CellIndexForPosition(_content.anchoredPosition.y);
-        _bottomIndex = CellIndexForPosition(_content.anchoredPosition.y + _viewPortHeight);
-
-        for (int i = _topIndex; i <= _bottomIndex; i++)
-            PlaceObjectAt(i);
+        UpdateVisibleItems();
     }
 
     /// <summary>
@@ -84,9 +76,6 @@ public class ScrollPool<T> where T : Component
     /// </summary>
     public void ClearDisplay()
     {
-        if (_items == null)
-            return;
-
         foreach (var item in _items)
         {
             if (item != null)
@@ -102,7 +91,8 @@ public class ScrollPool<T> where T : Component
     /// <returns>Topmost visible item</returns>
     public T GetTopItem()
     {
-        return _items[_topIndex];
+        var topIndex = CellIndexForPosition(_content.anchoredPosition.y);
+        return _items[topIndex];
     }
 
     private void PlaceObjectAt(int index)
@@ -131,36 +121,30 @@ public class ScrollPool<T> where T : Component
         var newTopIndex = CellIndexForPosition(_content.anchoredPosition.y);
         var newBottomIndex = CellIndexForPosition(_content.anchoredPosition.y + _viewPortHeight);
 
-        // Don't change items on scroll limits
-        if (newTopIndex < 0 || newBottomIndex >= _itemCount)
-            return;
+        // Don't add items beyond content limits
+        if (newTopIndex < 0)
+            newTopIndex = 0;
+
+        if (newBottomIndex >= _itemCount)
+            newBottomIndex = _itemCount - 1;
 
         // Remove no longer visible items
-        while (newTopIndex > _topIndex)
+        for (int i = 0; i < _items.Length; i++)
         {
-            _pool.ReturnObject(_items[_topIndex]);
-            _items[_topIndex] = null;
-            _topIndex++;
-        }
-
-        while (newBottomIndex < _bottomIndex)
-        {
-            _pool.ReturnObject(_items[_bottomIndex]);
-            _items[_bottomIndex] = null;
-            _bottomIndex--;
+            if (_items[i] != null && (i > newBottomIndex || i < newTopIndex))
+            {
+                _pool.ReturnObject(_items[i]);
+                _items[i] = null;
+            }
         }
 
         // Add newly visible items
-        while (newTopIndex < _topIndex)
+        for (int i = newTopIndex; i <= newBottomIndex; i++)
         {
-            _topIndex--;
-            PlaceObjectAt(_topIndex);
-        }
-
-        while (newBottomIndex > _bottomIndex)
-        {
-            _bottomIndex++;
-            PlaceObjectAt(_bottomIndex);
+            if (_items[i] == null)
+            {
+                PlaceObjectAt(i);
+            }
         }
     }
 
