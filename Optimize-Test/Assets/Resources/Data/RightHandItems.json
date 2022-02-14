@@ -4,247 +4,288 @@
         {
             "Name": "Right cork",
             "Description": "A cork.",
-            "Stat": 46,
+            "Fur": 46,
+            "Teeth": 23,
             "IconIndex": 23
         },
         {
             "Name": "Right pop can",
             "Description": "A pop can.",
-            "Stat": 40,
+            "Fur": 40,
+            "Teeth": 27,
             "IconIndex": 27
         },
         {
             "Name": "Right grocery list",
             "Description": "A grocery list.",
-            "Stat": 74,
+            "Fur": 74,
+            "Teeth": 18,
             "IconIndex": 18
         },
         {
             "Name": "Right couch",
             "Description": "A couch.",
-            "Stat": 53,
+            "Fur": 53,
+            "Teeth": 34,
             "IconIndex": 34
         },
         {
             "Name": "Right paperclip",
             "Description": "A paperclip.",
-            "Stat": 2,
+            "Fur": 2,
+            "Teeth": 4,
             "IconIndex": 4
         },
         {
             "Name": "Right ocarina",
             "Description": "A ocarina.",
-            "Stat": 85,
+            "Fur": 85,
+            "Teeth": 28,
             "IconIndex": 28
         },
         {
             "Name": "Right cell phone",
             "Description": "A cell phone.",
-            "Stat": 90,
+            "Fur": 90,
+            "Teeth": 17,
             "IconIndex": 17
         },
         {
             "Name": "Right water bottle",
             "Description": "A water bottle.",
-            "Stat": 91,
+            "Fur": 91,
+            "Teeth": 36,
             "IconIndex": 36
         },
         {
             "Name": "Right cowboy hat",
             "Description": "A cowboy hat.",
-            "Stat": 81,
+            "Fur": 81,
+            "Teeth": 38,
             "IconIndex": 38
         },
         {
             "Name": "Right tire swing",
             "Description": "A tire swing.",
-            "Stat": 20,
+            "Fur": 20,
+            "Teeth": 14,
             "IconIndex": 14
         },
         {
             "Name": "Right plate",
             "Description": "A plate.",
-            "Stat": 53,
+            "Fur": 53,
+            "Teeth": 16,
             "IconIndex": 16
         },
         {
             "Name": "Right ocarina",
             "Description": "A ocarina.",
-            "Stat": 7,
+            "Fur": 7,
+            "Teeth": 14,
             "IconIndex": 14
         },
         {
             "Name": "Right necktie",
             "Description": "A necktie.",
-            "Stat": 57,
+            "Fur": 57,
+            "Teeth": 12,
             "IconIndex": 12
         },
         {
             "Name": "Right tweezers",
             "Description": "A tweezers.",
-            "Stat": 61,
+            "Fur": 61,
+            "Teeth": 7,
             "IconIndex": 7
         },
         {
             "Name": "Right empty bottle",
             "Description": "A empty bottle.",
-            "Stat": 5,
+            "Fur": 5,
+            "Teeth": 31,
             "IconIndex": 31
         },
         {
             "Name": "Right fishing hook",
             "Description": "A fishing hook.",
-            "Stat": 65,
+            "Fur": 65,
+            "Teeth": 2,
             "IconIndex": 2
         },
         {
             "Name": "Right roll of masking tape",
             "Description": "A roll of masking tape.",
-            "Stat": 56,
+            "Fur": 56,
+            "Teeth": 29,
             "IconIndex": 29
         },
         {
             "Name": "Right dictionary",
             "Description": "A dictionary.",
-            "Stat": 81,
+            "Fur": 81,
+            "Teeth": 23,
             "IconIndex": 23
         },
         {
             "Name": "Right squirrel",
             "Description": "A squirrel.",
-            "Stat": 4,
+            "Fur": 4,
+            "Teeth": 12,
             "IconIndex": 12
         },
         {
             "Name": "Right television",
             "Description": "A television.",
-            "Stat": 61,
+            "Fur": 61,
+            "Teeth": 36,
             "IconIndex": 36
         },
         {
             "Name": "Right buckle",
             "Description": "A buckle.",
-            "Stat": 95,
+            "Fur": 95,
+            "Teeth": 12,
             "IconIndex": 12
         },
         {
             "Name": "Right jigsaw puzzle",
             "Description": "A jigsaw puzzle.",
-            "Stat": 69,
+            "Fur": 69,
+            "Teeth": 28,
             "IconIndex": 28
         },
         {
             "Name": "Right bed",
             "Description": "A bed.",
-            "Stat": 91,
+            "Fur": 91,
+            "Teeth": 17,
             "IconIndex": 17
         },
         {
             "Name": "Right roll of masking tape",
             "Description": "A roll of masking tape.",
-            "Stat": 92,
+            "Fur": 92,
+            "Teeth": 30,
             "IconIndex": 30
         },
         {
             "Name": "Right bookmark",
             "Description": "A bookmark.",
-            "Stat": 64,
+            "Fur": 64,
+            "Teeth": 18,
             "IconIndex": 18
         },
         {
             "Name": "Right nail",
             "Description": "A nail.",
-            "Stat": 47,
+            "Fur": 47,
+            "Teeth": 36,
             "IconIndex": 36
         },
         {
             "Name": "Right bottle of ink",
             "Description": "A bottle of ink.",
-            "Stat": 22,
+            "Fur": 22,
+            "Teeth": 13,
             "IconIndex": 13
         },
         {
             "Name": "Right face wash",
             "Description": "A face wash.",
-            "Stat": 70,
+            "Fur": 70,
+            "Teeth": 4,
             "IconIndex": 4
         },
         {
             "Name": "Right jar of peanut butter",
             "Description": "A jar of peanut butter.",
-            "Stat": 38,
+            "Fur": 38,
+            "Teeth": 31,
             "IconIndex": 31
         },
         {
             "Name": "Right stick",
             "Description": "A stick.",
-            "Stat": 9,
+            "Fur": 9,
+            "Teeth": 6,
             "IconIndex": 6
         },
         {
             "Name": "Right clothes",
             "Description": "A clothes.",
-            "Stat": 90,
+            "Fur": 90,
+            "Teeth": 6,
             "IconIndex": 6
         },
         {
             "Name": "Right glass",
             "Description": "A glass.",
-            "Stat": 24,
+            "Fur": 24,
+            "Teeth": 28,
             "IconIndex": 28
         },
         {
             "Name": "Right sidewalk",
             "Description": "A sidewalk.",
-            "Stat": 91,
+            "Fur": 91,
+            "Teeth": 15,
             "IconIndex": 15
         },
         {
             "Name": "Right grid paper",
             "Description": "A grid paper.",
-            "Stat": 48,
+            "Fur": 48,
+            "Teeth": 20,
             "IconIndex": 20
         },
         {
             "Name": "Right incense holder",
             "Description": "A incense holder.",
-            "Stat": 46,
+            "Fur": 46,
+            "Teeth": 35,
             "IconIndex": 35
         },
         {
             "Name": "Right floor",
             "Description": "A floor.",
-            "Stat": 80,
+            "Fur": 80,
+            "Teeth": 0,
             "IconIndex": 0
         },
         {
             "Name": "Right video games",
             "Description": "A video games.",
-            "Stat": 34,
+            "Fur": 34,
+            "Teeth": 28,
             "IconIndex": 28
         },
         {
             "Name": "Right watch",
             "Description": "A watch.",
-            "Stat": 42,
+            "Fur": 42,
+            "Teeth": 3,
             "IconIndex": 3
         },
         {
             "Name": "Right ipod",
             "Description": "A ipod.",
-            "Stat": 92,
+            "Fur": 92,
+            "Teeth": 25,
             "IconIndex": 25
         },
         {
             "Name": "Right canvas",
             "Description": "A canvas.",
-            "Stat": 69,
+            "Fur": 69,
+            "Teeth": 32,
             "IconIndex": 32
         },
         {
             "Name": "Right bracelet",
             "Description": "A bracelet.",
-            "Stat": 66,
+            "Fur": 66,
+            "Teeth": 8,
             "IconIndex": 8
         }
     ]

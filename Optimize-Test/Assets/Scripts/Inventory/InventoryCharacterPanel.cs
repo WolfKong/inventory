@@ -5,7 +5,8 @@ using System;
 
 public class InventoryCharacterPanel : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _stats;
+    [SerializeField] private TextMeshProUGUI _totalFur;
+    [SerializeField] private TextMeshProUGUI _totalTeeth;
     [SerializeField] private InventorySlot[] _slots;
 
     public event Action<InventoryCategory> ClickedSlot;
@@ -33,11 +34,19 @@ public class InventoryCharacterPanel : MonoBehaviour
 
     private void UpdateTotalStats()
     {
-        var total = 0;
+        var totalFur = 0;
+        var totalTeeth = 0;
 
         foreach (var category in _slotsBycategory.Keys)
-            total += category.SelectedData != null ? category.SelectedData.Stat : 0;
+        {
+            if (category.SelectedData != null)
+            {
+                totalFur += category.SelectedData.Fur;
+                totalTeeth += category.SelectedData.Teeth;
+            }
+        }
 
-        _stats.text = $"{total}";
+        _totalFur.text = $"{totalFur}";
+        _totalTeeth.text = $"{totalTeeth}";
     }
 }

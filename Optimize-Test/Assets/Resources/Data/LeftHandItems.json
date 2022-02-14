@@ -4,343 +4,400 @@
         {
             "Name": "Left carton of ice cream",
             "Description": "A carton of ice cream.",
-            "Stat": 94,
+            "Fur": 94,
+            "Teeth": 29,
             "IconIndex": 29
         },
         {
             "Name": "Left bananas",
             "Description": "A bananas.",
-            "Stat": 53,
+            "Fur": 53,
+            "Teeth": 9,
             "IconIndex": 9
         },
         {
             "Name": "Left book of matches",
             "Description": "A book of matches.",
-            "Stat": 27,
+            "Fur": 27,
+            "Teeth": 14,
             "IconIndex": 14
         },
         {
             "Name": "Left lotion",
             "Description": "A lotion.",
-            "Stat": 10,
+            "Fur": 10,
+            "Teeth": 6,
             "IconIndex": 6
         },
         {
             "Name": "Left toy top",
             "Description": "A toy top.",
-            "Stat": 33,
+            "Fur": 33,
+            "Teeth": 9,
             "IconIndex": 9
         },
         {
             "Name": "Left cement stone",
             "Description": "A cement stone.",
-            "Stat": 59,
+            "Fur": 59,
+            "Teeth": 3,
             "IconIndex": 3
         },
         {
             "Name": "Left sun glasses",
             "Description": "A sun glasses.",
-            "Stat": 63,
+            "Fur": 63,
+            "Teeth": 34,
             "IconIndex": 34
         },
         {
             "Name": "Left spool of string",
             "Description": "A spool of string.",
-            "Stat": 37,
+            "Fur": 37,
+            "Teeth": 14,
             "IconIndex": 14
         },
         {
             "Name": "Left roll of duct tape",
             "Description": "A roll of duct tape.",
-            "Stat": 6,
+            "Fur": 6,
+            "Teeth": 2,
             "IconIndex": 2
         },
         {
             "Name": "Left pair of sunglasses",
             "Description": "A pair of sunglasses.",
-            "Stat": 63,
+            "Fur": 63,
+            "Teeth": 22,
             "IconIndex": 22
         },
         {
             "Name": "Left nail clippers",
             "Description": "A nail clippers.",
-            "Stat": 80,
+            "Fur": 80,
+            "Teeth": 24,
             "IconIndex": 24
         },
         {
             "Name": "Left credit card",
             "Description": "A credit card.",
-            "Stat": 41,
+            "Fur": 41,
+            "Teeth": 12,
             "IconIndex": 12
         },
         {
             "Name": "Left bed",
             "Description": "A bed.",
-            "Stat": 37,
+            "Fur": 37,
+            "Teeth": 22,
             "IconIndex": 22
         },
         {
             "Name": "Left computer",
             "Description": "A computer.",
-            "Stat": 32,
+            "Fur": 32,
+            "Teeth": 29,
             "IconIndex": 29
         },
         {
             "Name": "Left bottle cap",
             "Description": "A bottle cap.",
-            "Stat": 74,
+            "Fur": 74,
+            "Teeth": 27,
             "IconIndex": 27
         },
         {
             "Name": "Left plush pony",
             "Description": "A plush pony.",
-            "Stat": 86,
+            "Fur": 86,
+            "Teeth": 33,
             "IconIndex": 33
         },
         {
             "Name": "Left vase",
             "Description": "A vase.",
-            "Stat": 23,
+            "Fur": 23,
+            "Teeth": 13,
             "IconIndex": 13
         },
         {
             "Name": "Left flowers",
             "Description": "A flowers.",
-            "Stat": 68,
+            "Fur": 68,
+            "Teeth": 17,
             "IconIndex": 17
         },
         {
             "Name": "Left puddle",
             "Description": "A puddle.",
-            "Stat": 31,
+            "Fur": 31,
+            "Teeth": 30,
             "IconIndex": 30
         },
         {
             "Name": "Left toy soldier",
             "Description": "A toy soldier.",
-            "Stat": 49,
+            "Fur": 49,
+            "Teeth": 38,
             "IconIndex": 38
         },
         {
             "Name": "Left key",
             "Description": "A key.",
-            "Stat": 30,
+            "Fur": 30,
+            "Teeth": 20,
             "IconIndex": 20
         },
         {
             "Name": "Left cup",
             "Description": "A cup.",
-            "Stat": 95,
+            "Fur": 95,
+            "Teeth": 36,
             "IconIndex": 36
         },
         {
             "Name": "Left brush",
             "Description": "A brush.",
-            "Stat": 5,
+            "Fur": 5,
+            "Teeth": 21,
             "IconIndex": 21
         },
         {
             "Name": "Left chapter book",
             "Description": "A chapter book.",
-            "Stat": 85,
+            "Fur": 85,
+            "Teeth": 13,
             "IconIndex": 13
         },
         {
             "Name": "Left drawer",
             "Description": "A drawer.",
-            "Stat": 9,
+            "Fur": 9,
+            "Teeth": 9,
             "IconIndex": 9
         },
         {
             "Name": "Left empty jar",
             "Description": "A empty jar.",
-            "Stat": 58,
+            "Fur": 58,
+            "Teeth": 18,
             "IconIndex": 18
         },
         {
             "Name": "Left bow tie",
             "Description": "A bow tie.",
-            "Stat": 98,
+            "Fur": 98,
+            "Teeth": 30,
             "IconIndex": 30
         },
         {
             "Name": "Left box of crayons",
             "Description": "A box of crayons.",
-            "Stat": 62,
+            "Fur": 62,
+            "Teeth": 36,
             "IconIndex": 36
         },
         {
             "Name": "Left Christmas ornament",
             "Description": "A Christmas ornament.",
-            "Stat": 58,
+            "Fur": 58,
+            "Teeth": 6,
             "IconIndex": 6
         },
         {
             "Name": "Left pair of handcuffs",
             "Description": "A pair of handcuffs.",
-            "Stat": 36,
+            "Fur": 36,
+            "Teeth": 26,
             "IconIndex": 26
         },
         {
             "Name": "Left sun glasses",
             "Description": "A sun glasses.",
-            "Stat": 50,
+            "Fur": 50,
+            "Teeth": 5,
             "IconIndex": 5
         },
         {
             "Name": "Left keychain",
             "Description": "A keychain.",
-            "Stat": 77,
+            "Fur": 77,
+            "Teeth": 18,
             "IconIndex": 18
         },
         {
             "Name": "Left glass",
             "Description": "A glass.",
-            "Stat": 16,
+            "Fur": 16,
+            "Teeth": 8,
             "IconIndex": 8
         },
         {
             "Name": "Left spool of thread",
             "Description": "A spool of thread.",
-            "Stat": 22,
+            "Fur": 22,
+            "Teeth": 11,
             "IconIndex": 11
         },
         {
             "Name": "Left egg beater",
             "Description": "A egg beater.",
-            "Stat": 16,
+            "Fur": 16,
+            "Teeth": 32,
             "IconIndex": 32
         },
         {
             "Name": "Left bottle of honey",
             "Description": "A bottle of honey.",
-            "Stat": 62,
+            "Fur": 62,
+            "Teeth": 32,
             "IconIndex": 32
         },
         {
             "Name": "Left sponge",
             "Description": "A sponge.",
-            "Stat": 69,
+            "Fur": 69,
+            "Teeth": 11,
             "IconIndex": 11
         },
         {
             "Name": "Left seat belt",
             "Description": "A seat belt.",
-            "Stat": 11,
+            "Fur": 11,
+            "Teeth": 35,
             "IconIndex": 35
         },
         {
             "Name": "Left dog",
             "Description": "A dog.",
-            "Stat": 98,
+            "Fur": 98,
+            "Teeth": 24,
             "IconIndex": 24
         },
         {
             "Name": "Left pair of rubber gloves",
             "Description": "A pair of rubber gloves.",
-            "Stat": 37,
+            "Fur": 37,
+            "Teeth": 29,
             "IconIndex": 29
         },
         {
             "Name": "Left street lights",
             "Description": "A street lights.",
-            "Stat": 71,
+            "Fur": 71,
+            "Teeth": 11,
             "IconIndex": 11
         },
         {
             "Name": "Left rolling pin",
             "Description": "A rolling pin.",
-            "Stat": 80,
+            "Fur": 80,
+            "Teeth": 12,
             "IconIndex": 12
         },
         {
             "Name": "Left rhino",
             "Description": "A rhino.",
-            "Stat": 100,
+            "Fur": 100,
+            "Teeth": 9,
             "IconIndex": 9
         },
         {
             "Name": "Left spectacles",
             "Description": "A spectacles.",
-            "Stat": 22,
+            "Fur": 22,
+            "Teeth": 17,
             "IconIndex": 17
         },
         {
             "Name": "Left knife",
             "Description": "A knife.",
-            "Stat": 63,
+            "Fur": 63,
+            "Teeth": 7,
             "IconIndex": 7
         },
         {
             "Name": "Left nail filer",
             "Description": "A nail filer.",
-            "Stat": 71,
+            "Fur": 71,
+            "Teeth": 33,
             "IconIndex": 33
         },
         {
             "Name": "Left light bulb",
             "Description": "A light bulb.",
-            "Stat": 9,
+            "Fur": 9,
+            "Teeth": 36,
             "IconIndex": 36
         },
         {
             "Name": "Left baseball bat",
             "Description": "A baseball bat.",
-            "Stat": 46,
+            "Fur": 46,
+            "Teeth": 28,
             "IconIndex": 28
         },
         {
             "Name": "Left desk",
             "Description": "A desk.",
-            "Stat": 2,
+            "Fur": 2,
+            "Teeth": 30,
             "IconIndex": 30
         },
         {
             "Name": "Left squirt gun",
             "Description": "A squirt gun.",
-            "Stat": 43,
+            "Fur": 43,
+            "Teeth": 36,
             "IconIndex": 36
         },
         {
             "Name": "Left nail",
             "Description": "A nail.",
-            "Stat": 86,
+            "Fur": 86,
+            "Teeth": 2,
             "IconIndex": 2
         },
         {
             "Name": "Left rusty nail",
             "Description": "A rusty nail.",
-            "Stat": 58,
+            "Fur": 58,
+            "Teeth": 1,
             "IconIndex": 1
         },
         {
             "Name": "Left flowers",
             "Description": "A flowers.",
-            "Stat": 25,
+            "Fur": 25,
+            "Teeth": 37,
             "IconIndex": 37
         },
         {
             "Name": "Left toothpick",
             "Description": "A toothpick.",
-            "Stat": 54,
+            "Fur": 54,
+            "Teeth": 22,
             "IconIndex": 22
         },
         {
             "Name": "Left knife",
             "Description": "A knife.",
-            "Stat": 86,
+            "Fur": 86,
+            "Teeth": 36,
             "IconIndex": 36
         },
         {
             "Name": "Left package of crisp and crunchy edibles",
             "Description": "A package of crisp and crunchy edibles.",
-            "Stat": 77,
+            "Fur": 77,
+            "Teeth": 8,
             "IconIndex": 8
         },
         {
             "Name": "Left box of markers",
             "Description": "A box of markers.",
-            "Stat": 75,
+            "Fur": 75,
+            "Teeth": 24,
             "IconIndex": 24
         }
     ]
