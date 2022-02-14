@@ -7,6 +7,5 @@ public class InventoryItemData
     public int IconIndex;
     public string Name;
     public string Description;
-    public int Fur;
-    public int Teeth;
+    public int[] Stats;
 }
