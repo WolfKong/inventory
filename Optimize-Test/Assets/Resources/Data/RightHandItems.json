@@ -4,7 +4,7 @@
         {
             "Name": "Right cork",
             "Description": "A cork.",
-            "Stats": [46, 23, 3],
+            "Stats": [46, 23, 63],
             "IconIndex": 23
         },
         {
@@ -16,25 +16,25 @@
         {
             "Name": "Right grocery list",
             "Description": "A grocery list.",
-            "Stats": [74, 18, 8],
+            "Stats": [74, 18, 48],
             "IconIndex": 18
         },
         {
             "Name": "Right couch",
             "Description": "A couch.",
-            "Stats": [53, 34, 4],
+            "Stats": [53, 34, 34],
             "IconIndex": 34
         },
         {
             "Name": "Right paperclip",
             "Description": "A paperclip.",
-            "Stats": [2, 4, 4],
+            "Stats": [2, 4, 24],
             "IconIndex": 4
         },
         {
             "Name": "Right ocarina",
             "Description": "A ocarina.",
-            "Stats": [85, 28, 8],
+            "Stats": [85, 28, 58],
             "IconIndex": 28
         },
         {
@@ -46,13 +46,13 @@
         {
             "Name": "Right water bottle",
             "Description": "A water bottle.",
-            "Stats": [91, 36, 6],
+            "Stats": [91, 36, 16],
             "IconIndex": 36
         },
         {
             "Name": "Right cowboy hat",
             "Description": "A cowboy hat.",
-            "Stats": [81, 38, 8],
+            "Stats": [81, 38, 18],
             "IconIndex": 38
         },
         {
@@ -64,103 +64,103 @@
         {
             "Name": "Right plate",
             "Description": "A plate.",
-            "Stats": [53, 16, 6],
+            "Stats": [53, 16, 36],
             "IconIndex": 16
         },
         {
             "Name": "Right ocarina",
             "Description": "A ocarina.",
-            "Stats": [7, 14, 4],
+            "Stats": [7, 14, 74],
             "IconIndex": 14
         },
         {
             "Name": "Right necktie",
             "Description": "A necktie.",
-            "Stats": [57, 12, 2],
+            "Stats": [57, 12, 72],
             "IconIndex": 12
         },
         {
             "Name": "Right tweezers",
             "Description": "A tweezers.",
-            "Stats": [61, 7, 7],
+            "Stats": [61, 7, 17],
             "IconIndex": 7
         },
         {
             "Name": "Right empty bottle",
             "Description": "A empty bottle.",
-            "Stats": [5, 31, 1],
+            "Stats": [5, 31, 51],
             "IconIndex": 31
         },
         {
             "Name": "Right fishing hook",
             "Description": "A fishing hook.",
-            "Stats": [65, 2, 2],
+            "Stats": [65, 2, 52],
             "IconIndex": 2
         },
         {
             "Name": "Right roll of masking tape",
             "Description": "A roll of masking tape.",
-            "Stats": [56, 29, 9],
+            "Stats": [56, 29, 69],
             "IconIndex": 29
         },
         {
             "Name": "Right dictionary",
             "Description": "A dictionary.",
-            "Stats": [81, 23, 3],
+            "Stats": [81, 23, 13],
             "IconIndex": 23
         },
         {
             "Name": "Right squirrel",
             "Description": "A squirrel.",
-            "Stats": [4, 12, 2],
+            "Stats": [4, 12, 42],
             "IconIndex": 12
         },
         {
             "Name": "Right television",
             "Description": "A television.",
-            "Stats": [61, 36, 6],
+            "Stats": [61, 36, 16],
             "IconIndex": 36
         },
         {
             "Name": "Right buckle",
             "Description": "A buckle.",
-            "Stats": [95, 12, 2],
+            "Stats": [95, 12, 52],
             "IconIndex": 12
         },
         {
             "Name": "Right jigsaw puzzle",
             "Description": "A jigsaw puzzle.",
-            "Stats": [69, 28, 8],
+            "Stats": [69, 28, 98],
             "IconIndex": 28
         },
         {
             "Name": "Right bed",
             "Description": "A bed.",
-            "Stats": [91, 17, 7],
+            "Stats": [91, 17, 17],
             "IconIndex": 17
         },
         {
             "Name": "Right roll of masking tape",
             "Description": "A roll of masking tape.",
-            "Stats": [92, 30, 0],
+            "Stats": [92, 30, 20],
             "IconIndex": 30
         },
         {
             "Name": "Right bookmark",
             "Description": "A bookmark.",
-            "Stats": [64, 18, 8],
+            "Stats": [64, 18, 48],
             "IconIndex": 18
         },
         {
             "Name": "Right nail",
             "Description": "A nail.",
-            "Stats": [47, 36, 6],
+            "Stats": [47, 36, 76],
             "IconIndex": 36
         },
         {
             "Name": "Right bottle of ink",
             "Description": "A bottle of ink.",
-            "Stats": [22, 13, 3],
+            "Stats": [22, 13, 23],
             "IconIndex": 13
         },
         {
@@ -172,13 +172,13 @@
         {
             "Name": "Right jar of peanut butter",
             "Description": "A jar of peanut butter.",
-            "Stats": [38, 31, 1],
+            "Stats": [38, 31, 81],
             "IconIndex": 31
         },
         {
             "Name": "Right stick",
             "Description": "A stick.",
-            "Stats": [9, 6, 6],
+            "Stats": [9, 6, 96],
             "IconIndex": 6
         },
         {
@@ -190,25 +190,25 @@
         {
             "Name": "Right glass",
             "Description": "A glass.",
-            "Stats": [24, 28, 8],
+            "Stats": [24, 28, 48],
             "IconIndex": 28
         },
         {
             "Name": "Right sidewalk",
             "Description": "A sidewalk.",
-            "Stats": [91, 15, 5],
+            "Stats": [91, 15, 15],
             "IconIndex": 15
         },
         {
             "Name": "Right grid paper",
             "Description": "A grid paper.",
-            "Stats": [48, 20, 0],
+            "Stats": [48, 20, 80],
             "IconIndex": 20
         },
         {
             "Name": "Right incense holder",
             "Description": "A incense holder.",
-            "Stats": [46, 35, 5],
+            "Stats": [46, 35, 65],
             "IconIndex": 35
         },
         {
@@ -220,31 +220,31 @@
         {
             "Name": "Right video games",
             "Description": "A video games.",
-            "Stats": [34, 28, 8],
+            "Stats": [34, 28, 48],
             "IconIndex": 28
         },
         {
             "Name": "Right watch",
             "Description": "A watch.",
-            "Stats": [42, 3, 3],
+            "Stats": [42, 3, 23],
             "IconIndex": 3
         },
         {
             "Name": "Right ipod",
             "Description": "A ipod.",
-            "Stats": [92, 25, 5],
+            "Stats": [92, 25, 25],
             "IconIndex": 25
         },
         {
             "Name": "Right canvas",
             "Description": "A canvas.",
-            "Stats": [69, 32, 2],
+            "Stats": [69, 32, 92],
             "IconIndex": 32
         },
         {
             "Name": "Right bracelet",
             "Description": "A bracelet.",
-            "Stats": [66, 8, 8],
+            "Stats": [66, 8, 68],
             "IconIndex": 8
         }
     ]

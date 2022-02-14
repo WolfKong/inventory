@@ -39,6 +39,7 @@ public class InventoryManager : MonoBehaviour
             Destroy(tab.gameObject);
 
         _characterPanel.ClickedSlot += SelectCategory;
+        _characterPanel.Optimize += OnOptimization;
 
         _tabsByCategory = new Dictionary<InventoryCategory, TabButton>();
 
@@ -61,6 +62,7 @@ public class InventoryManager : MonoBehaviour
     private void OnDestroy()
     {
         _characterPanel.ClickedSlot -= SelectCategory;
+        _characterPanel.Optimize -= OnOptimization;
     }
 
     /// <summary>
@@ -82,7 +84,20 @@ public class InventoryManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Display list of items for selected category.
+    /// Updates list, characterPanel and infoPanel
+    /// </summary>
+    private void OnOptimization()
+    {
+        foreach (var category in _inventoryCategories)
+            _characterPanel.UpdateCategory(category, category.SelectedData, _icons);
+
+        UpdateList();
+
+        _infoPanel.SetData(_selectedCategory.SelectedData);
+    }
+
+    /// <summary>
+    /// Highlights tabs and updates list of items for selected category.
     /// </summary>
     /// <param name="category">Selected category.</param>
     private void SelectCategory(InventoryCategory category)
@@ -99,15 +114,23 @@ public class InventoryManager : MonoBehaviour
         _selectedCategory = category;
         _tabsByCategory[category].Highlight(true);
 
-        _scrollPool.ClearDisplay();
-        _scrollPool.SetItemCount(category.ItemsData.Length);
-        _scrollPool.PlaceItems(category.SelectedIndex);
+        UpdateList();
 
         // Select the first item if none is selected
         if (category.SelectedIndex < 0)
             SelectItem(_scrollPool.GetTopItem(), 0);
         else
             _infoPanel.SetData(category.SelectedData);
+    }
+
+    /// <summary>
+    /// Display list of items for selected category.
+    /// </summary>
+    private void UpdateList()
+    {
+        _scrollPool.ClearDisplay();
+        _scrollPool.SetItemCount(_selectedCategory.ItemsData.Length);
+        _scrollPool.PlaceItems(_selectedCategory.SelectedIndex);
     }
 
     /// <summary>

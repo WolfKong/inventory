@@ -9,14 +9,21 @@ public class InventoryCharacterPanel : MonoBehaviour
     [SerializeField] private InventorySlot[] _slots;
     [SerializeField] private StatsText _statsTextPrefab;
     [SerializeField] private Transform _statsTextParent;
+    [SerializeField] private TabButton _topButtonsPrefab;
+    [SerializeField] private Transform _topButtonsParent;
 
     public event Action<InventoryCategory> ClickedSlot;
+    public event Action Optimize;
 
     private Dictionary<InventoryCategory, InventorySlot> _slotsBycategory;
     private StatsText[] _stats;
 
     private void Awake()
     {
+        // Clear existing topButtons already in the list.
+        foreach (TabButton topButton in _topButtonsParent.GetComponentsInChildren<TabButton>())
+            Destroy(topButton.gameObject);
+
         _slotsBycategory = new Dictionary<InventoryCategory, InventorySlot>();
 
         foreach (var slot in _slots)
@@ -34,6 +41,11 @@ public class InventoryCharacterPanel : MonoBehaviour
             statsText.Name.text = names[i].ToString();
 
             _stats[i] = statsText;
+
+            var topButton = Instantiate<TabButton>(_topButtonsPrefab, _topButtonsParent);
+            topButton.Label.text = $"Optimize {names[i]}";
+            topButton.Index = i;
+            topButton.Button.onClick.AddListener(() => { OptimizeStats(topButton.Index); });
         }
     }
 
@@ -43,6 +55,30 @@ public class InventoryCharacterPanel : MonoBehaviour
             _slotsBycategory[category].Icon.sprite = _icons[itemData.IconIndex];
 
         UpdateTotalStats();
+    }
+
+    private void OptimizeStats(int statsIndex)
+    {
+        foreach (var category in _slotsBycategory.Keys)
+        {
+            var itemsData = category.ItemsData;
+            var maxValue = 0;
+            var maxIndex = 0;
+
+            for (int i = 0; i < itemsData.Length; i++)
+            {
+                var item = itemsData[i];
+                if (item.Stats[statsIndex] > maxValue)
+                {
+                    maxValue = item.Stats[statsIndex];
+                    maxIndex = i;
+                }
+            }
+
+            category.SelectedIndex = maxIndex;
+        }
+
+        Optimize?.Invoke();
     }
 
     private void UpdateTotalStats()

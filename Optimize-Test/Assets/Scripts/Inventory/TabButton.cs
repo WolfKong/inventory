@@ -6,6 +6,7 @@ public class TabButton : MonoBehaviour
 {
     [SerializeField] private Image _background;
     public TextMeshProUGUI Label;
+    public int Index;
     public Button Button;
 
     public void Highlight(bool selected)
