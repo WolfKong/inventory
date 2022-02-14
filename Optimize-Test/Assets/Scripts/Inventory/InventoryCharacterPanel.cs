@@ -23,9 +23,21 @@ public class InventoryCharacterPanel : MonoBehaviour
         }
     }
 
-    public void UpdateCategory(InventoryCategory category, Sprite sprite)
+    public void UpdateCategory(InventoryCategory category, InventoryItemData itemData, Sprite[] _icons)
     {
         if (_slotsBycategory.ContainsKey(category))
-            _slotsBycategory[category].Icon.sprite = sprite;
+            _slotsBycategory[category].Icon.sprite = _icons[itemData.IconIndex];
+
+        UpdateTotalStats();
+    }
+
+    private void UpdateTotalStats()
+    {
+        var total = 0;
+
+        foreach (var category in _slotsBycategory.Keys)
+            total += category.SelectedData != null ? category.SelectedData.Stat : 0;
+
+        _stats.text = $"{total}";
     }
 }

@@ -47,10 +47,10 @@ public class InventoryManager : MonoBehaviour
         foreach (TabButton tab in _tabsParent.GetComponentsInChildren<TabButton>())
             Destroy(tab.gameObject);
 
+        _characterPanel.ClickedSlot += SelectCategory;
+
         _itemsDataByCategory = new Dictionary<InventoryCategory, InventoryItemData[]>();
         _tabsByCategory = new Dictionary<InventoryCategory, TabButton>();
-
-        _characterPanel.ClickedSlot += SelectCategory;
 
         foreach (var category in _inventoryCategories)
         {
@@ -152,6 +152,7 @@ public class InventoryManager : MonoBehaviour
         var itemData = _itemsDataByCategory[_selectedCategory][index];
         _infoPanel.SetData(itemData);
         _selectedCategory.SelectedIndex = index;
-        _characterPanel.UpdateCategory(_selectedCategory, _icons[itemData.IconIndex]);
+        _selectedCategory.SelectedData = itemData;
+        _characterPanel.UpdateCategory(_selectedCategory, itemData, _icons);
     }
 }
