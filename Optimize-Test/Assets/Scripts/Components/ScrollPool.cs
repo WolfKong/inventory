@@ -12,7 +12,6 @@ public class ScrollPool<T> where T : Component
     private Action<T, int> _initializeItem;
 
     private int _itemCount;
-
     private float _cellHeight;
     private float _viewPortHeight;
 
@@ -56,10 +55,10 @@ public class ScrollPool<T> where T : Component
     /// Places all items near given index.
     /// </summary>
     /// <param name="index">Index of selected cell.</param>
-    /// <param name="offset">How many previous cells should be visible.</param>
-    public void PlaceItems(int index, int offset = 2)
+    /// <param name="visiblePreviousCells">How many previous cells should be visible.</param>
+    public void PlaceItems(int index, int visiblePreviousCells = 2)
     {
-        var targetPosition = (index - offset) * _cellHeight;
+        var targetPosition = (index - visiblePreviousCells) * _cellHeight;
 
         // Avoid trying to scroll lower or higher than allowed
         var position = Mathf.Min(targetPosition, _content.rect.height - _viewPortHeight);

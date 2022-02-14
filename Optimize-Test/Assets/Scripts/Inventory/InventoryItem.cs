@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour
 {
-    public Image Background;
+    [SerializeField] private Image _background;
     public Image Icon;
     public TextMeshProUGUI Name;
     public Button Button;
 
     public void Highlight(bool selected)
     {
-        Background.color = selected ? Color.red : Color.white;
+        _background.color = selected ? Color.red : Color.white;
     }
 }

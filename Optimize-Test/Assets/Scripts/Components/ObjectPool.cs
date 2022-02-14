@@ -53,10 +53,10 @@ public class ObjectPool<T> where T : Component
     /// <summary>
     /// Returns an object to the pool.
     /// </summary>
-    /// <param name="component">Object being returned.</param>
-    public void ReturnObject(T component)
+    /// <param name="item">Object being returned.</param>
+    public void ReturnObject(T item)
     {
-        _availableItems.Add(component);
-        component.gameObject.SetActive(false);
+        _availableItems.Add(item);
+        item.gameObject.SetActive(false);
     }
 }

@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab982d58559817b4f8123a0bec6153ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Background: {fileID: 3524837759571232111}
+  _background: {fileID: 3524837759571232111}
   Icon: {fileID: 8701206775993556585}
   Name: {fileID: 3476356805178039162}
   Button: {fileID: 5462570301140289662}
