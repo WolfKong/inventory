@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
 
 public class ScrollPool<T> where T : Component
 {
     private ScrollRect _scrollRect;
     private RectTransform _content;
-    private T[] _items = new T[0];
+    private Dictionary<int, T> _items;
     private ObjectPool<T> _pool;
     private Action<T, int> _initializeItem;
 
@@ -34,6 +35,8 @@ public class ScrollPool<T> where T : Component
 
         var visibleCells = Mathf.CeilToInt(_viewPortHeight / _cellHeight) + 1;
 
+        _items = new Dictionary<int, T>();
+
         _pool = new ObjectPool<T>();
         _pool.PopulatePool(prefab, _content, visibleCells);
     }
@@ -45,8 +48,6 @@ public class ScrollPool<T> where T : Component
     public void SetItemCount(int itemCount)
     {
         _itemCount = itemCount;
-
-        _items = new T[_itemCount];
 
         _content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, itemCount * _cellHeight);
     }
@@ -77,12 +78,9 @@ public class ScrollPool<T> where T : Component
     public void ClearDisplay()
     {
         foreach (var item in _items)
-        {
-            if (item != null)
-            {
-                _pool.ReturnObject(item);
-            }
-        }
+            _pool.ReturnObject(item.Value);
+
+        _items.Clear();
     }
 
     /// <summary>
@@ -129,19 +127,24 @@ public class ScrollPool<T> where T : Component
             newBottomIndex = _itemCount - 1;
 
         // Remove no longer visible items
-        for (int i = 0; i < _items.Length; i++)
+        var indexesToRemove = new List<int>();
+        foreach (var item in _items)
         {
-            if (_items[i] != null && (i > newBottomIndex || i < newTopIndex))
+            var index = item.Key;
+            if (index > newBottomIndex || index < newTopIndex)
             {
-                _pool.ReturnObject(_items[i]);
-                _items[i] = null;
+                _pool.ReturnObject(item.Value);
+                indexesToRemove.Add(index);
             }
         }
+
+        foreach (var index in indexesToRemove)
+            _items.Remove(index);
 
         // Add newly visible items
         for (int i = newTopIndex; i <= newBottomIndex; i++)
         {
-            if (_items[i] == null)
+            if (!_items.ContainsKey(i))
             {
                 PlaceObjectAt(i);
             }
