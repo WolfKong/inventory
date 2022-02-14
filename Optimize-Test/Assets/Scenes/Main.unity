@@ -205,6 +205,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1249921966}
     m_Modifications:
+    - target: {fileID: 786528680601299498, guid: cf16a55e463b70645a05fdd7cb940ae2, type: 3}
+      propertyPath: Category
+      value: 
+      objectReference: {fileID: 11400000, guid: d958a9b53574d8b42bdbd5f58ee8e003, type: 2}
     - target: {fileID: 4974077465179984113, guid: cf16a55e463b70645a05fdd7cb940ae2, type: 3}
       propertyPath: m_Name
       value: AllItemsButton
@@ -703,6 +707,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1249921966}
     m_Modifications:
+    - target: {fileID: 786528680601299498, guid: cf16a55e463b70645a05fdd7cb940ae2, type: 3}
+      propertyPath: Category
+      value: 
+      objectReference: {fileID: 11400000, guid: c4a7630bc2fc0f646ac1f1d76dd1abc2, type: 2}
     - target: {fileID: 4974077465179984113, guid: cf16a55e463b70645a05fdd7cb940ae2, type: 3}
       propertyPath: m_Name
       value: RightHandButton
@@ -995,13 +1003,15 @@ MonoBehaviour:
   _tabsParent: {fileID: 724967983}
   _scrollRect: {fileID: 1090443029}
   _container: {fileID: 466751961}
-  _inventorySlotData:
-  - Slot: {fileID: 183184935}
-    Json: {fileID: 4900000, guid: f71be4b6d8a645845a8c3da34aae7ec2, type: 3}
-  - Slot: {fileID: 1239594177}
-    Json: {fileID: 4900000, guid: d284e25f2212db346932892aa0cf173e, type: 3}
-  - Slot: {fileID: 1972696231}
-    Json: {fileID: 4900000, guid: adbffe965b66ae54285eaa2b7e5efa04, type: 3}
+  _slots:
+  - {fileID: 183184935}
+  - {fileID: 1239594177}
+  - {fileID: 1972696231}
+  _startingCategory: {fileID: 11400000, guid: d958a9b53574d8b42bdbd5f58ee8e003, type: 2}
+  _inventoryCategories:
+  - {fileID: 11400000, guid: d958a9b53574d8b42bdbd5f58ee8e003, type: 2}
+  - {fileID: 11400000, guid: bea4e76cc24885d45b8a84ae6f65b111, type: 2}
+  - {fileID: 11400000, guid: c4a7630bc2fc0f646ac1f1d76dd1abc2, type: 2}
   _itemGenerateScale: 10
   _icons:
   - {fileID: 8809840584394548479, guid: d4035ff8d358f484e9162c2a38bb0fdb, type: 3}
@@ -1787,6 +1797,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1249921966}
     m_Modifications:
+    - target: {fileID: 786528680601299498, guid: cf16a55e463b70645a05fdd7cb940ae2, type: 3}
+      propertyPath: Category
+      value: 
+      objectReference: {fileID: 11400000, guid: bea4e76cc24885d45b8a84ae6f65b111, type: 2}
     - target: {fileID: 4974077465179984113, guid: cf16a55e463b70645a05fdd7cb940ae2, type: 3}
       propertyPath: m_Name
       value: LeftHandButton
