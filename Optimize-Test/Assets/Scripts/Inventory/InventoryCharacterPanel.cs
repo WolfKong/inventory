@@ -49,6 +49,7 @@ public class InventoryCharacterPanel : MonoBehaviour
     /// <param name="fieldInfo">FieldInfo of stats.</param>
     /// <param name="name">Name of stats.</param>
     /// <param name="isSum">Are components for displaying sum of stats?</param>
+    /// <returns>StatsText</returns>
     private StatsText CreateStatsText(FieldInfo fieldInfo, string name, bool isSum = false)
     {
         var statsText = Instantiate(_statsTextPrefab, _statsTextParent);
