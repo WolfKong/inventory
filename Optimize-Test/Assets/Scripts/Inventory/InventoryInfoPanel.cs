@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
+using System.Reflection;
 
 public class InventoryInfoPanel : MonoBehaviour
 {
@@ -8,19 +10,18 @@ public class InventoryInfoPanel : MonoBehaviour
     [SerializeField] private StatsText _statsTextPrefab;
     [SerializeField] private Transform _statsTextParent;
 
-    private StatsText[] _stats;
+    private Dictionary<FieldInfo, StatsText> _statsByField;
 
     private void Awake()
     {
-        var names = StatsNames.Names;
-        _stats = new StatsText[names.Length];
+        _statsByField = new Dictionary<FieldInfo, StatsText>();
 
-        for (int i = 0; i < names.Length; i++)
+        foreach (var fieldInfo in typeof(ItemStats).GetFields())
         {
             var statsText = Instantiate(_statsTextPrefab, _statsTextParent);
-            statsText.Name.text = names[i].ToString();
+            statsText.Name.text = fieldInfo.Name;
 
-            _stats[i] = statsText;
+            _statsByField.Add(fieldInfo, statsText);
         }
     }
 
@@ -33,7 +34,7 @@ public class InventoryInfoPanel : MonoBehaviour
         _name.text = data.Name;
         _description.text = data.Description;
 
-        for (int i = 0; i < _stats.Length; i++)
-            _stats[i].Value.text = data.Stats[i].ToString();
+        foreach (var pair in _statsByField)
+            pair.Value.Value.text = pair.Key.GetValue(data.Stats).ToString();
     }
 }

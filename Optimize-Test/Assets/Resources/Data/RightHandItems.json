@@ -4,247 +4,247 @@
         {
             "Name": "Right cork",
             "Description": "A cork.",
-            "Stats": [46, 23, 63],
+            "Stats": { "Fur": 46, "Fang": 23,"Eyes": 63},
             "IconIndex": 23
         },
         {
             "Name": "Right pop can",
             "Description": "A pop can.",
-            "Stats": [40, 27, 7],
+            "Stats": { "Fur": 40, "Fang": 27,"Eyes": 7},
             "IconIndex": 27
         },
         {
             "Name": "Right grocery list",
             "Description": "A grocery list.",
-            "Stats": [74, 18, 48],
+            "Stats": { "Fur": 74, "Fang": 18,"Eyes": 48},
             "IconIndex": 18
         },
         {
             "Name": "Right couch",
             "Description": "A couch.",
-            "Stats": [53, 34, 34],
+            "Stats": { "Fur": 53, "Fang": 34,"Eyes": 34},
             "IconIndex": 34
         },
         {
             "Name": "Right paperclip",
             "Description": "A paperclip.",
-            "Stats": [2, 4, 24],
+            "Stats": { "Fur": 2, "Fang": 4,"Eyes": 24},
             "IconIndex": 4
         },
         {
             "Name": "Right ocarina",
             "Description": "A ocarina.",
-            "Stats": [85, 28, 58],
+            "Stats": { "Fur": 85, "Fang": 28,"Eyes": 58},
             "IconIndex": 28
         },
         {
             "Name": "Right cell phone",
             "Description": "A cell phone.",
-            "Stats": [90, 17, 7],
+            "Stats": { "Fur": 90, "Fang": 17,"Eyes": 7},
             "IconIndex": 17
         },
         {
             "Name": "Right water bottle",
             "Description": "A water bottle.",
-            "Stats": [91, 36, 16],
+            "Stats": { "Fur": 91, "Fang": 36,"Eyes": 16},
             "IconIndex": 36
         },
         {
             "Name": "Right cowboy hat",
             "Description": "A cowboy hat.",
-            "Stats": [81, 38, 18],
+            "Stats": { "Fur": 81, "Fang": 38,"Eyes": 18},
             "IconIndex": 38
         },
         {
             "Name": "Right tire swing",
             "Description": "A tire swing.",
-            "Stats": [20, 14, 4],
+            "Stats": { "Fur": 20, "Fang": 14,"Eyes": 4},
             "IconIndex": 14
         },
         {
             "Name": "Right plate",
             "Description": "A plate.",
-            "Stats": [53, 16, 36],
+            "Stats": { "Fur": 53, "Fang": 16,"Eyes": 36},
             "IconIndex": 16
         },
         {
             "Name": "Right ocarina",
             "Description": "A ocarina.",
-            "Stats": [7, 14, 74],
+            "Stats": { "Fur": 7, "Fang": 14,"Eyes": 74},
             "IconIndex": 14
         },
         {
             "Name": "Right necktie",
             "Description": "A necktie.",
-            "Stats": [57, 12, 72],
+            "Stats": { "Fur": 57, "Fang": 12,"Eyes": 72},
             "IconIndex": 12
         },
         {
             "Name": "Right tweezers",
             "Description": "A tweezers.",
-            "Stats": [61, 7, 17],
+            "Stats": { "Fur": 61, "Fang": 7,"Eyes": 17},
             "IconIndex": 7
         },
         {
             "Name": "Right empty bottle",
             "Description": "A empty bottle.",
-            "Stats": [5, 31, 51],
+            "Stats": { "Fur": 5, "Fang": 31,"Eyes": 51},
             "IconIndex": 31
         },
         {
             "Name": "Right fishing hook",
             "Description": "A fishing hook.",
-            "Stats": [65, 2, 52],
+            "Stats": { "Fur": 65, "Fang": 2,"Eyes": 52},
             "IconIndex": 2
         },
         {
             "Name": "Right roll of masking tape",
             "Description": "A roll of masking tape.",
-            "Stats": [56, 29, 69],
+            "Stats": { "Fur": 56, "Fang": 29,"Eyes": 69},
             "IconIndex": 29
         },
         {
             "Name": "Right dictionary",
             "Description": "A dictionary.",
-            "Stats": [81, 23, 13],
+            "Stats": { "Fur": 81, "Fang": 23,"Eyes": 13},
             "IconIndex": 23
         },
         {
             "Name": "Right squirrel",
             "Description": "A squirrel.",
-            "Stats": [4, 12, 42],
+            "Stats": { "Fur": 4, "Fang": 12,"Eyes": 42},
             "IconIndex": 12
         },
         {
             "Name": "Right television",
             "Description": "A television.",
-            "Stats": [61, 36, 16],
+            "Stats": { "Fur": 61, "Fang": 36,"Eyes": 16},
             "IconIndex": 36
         },
         {
             "Name": "Right buckle",
             "Description": "A buckle.",
-            "Stats": [95, 12, 52],
+            "Stats": { "Fur": 95, "Fang": 12,"Eyes": 52},
             "IconIndex": 12
         },
         {
             "Name": "Right jigsaw puzzle",
             "Description": "A jigsaw puzzle.",
-            "Stats": [69, 28, 98],
+            "Stats": { "Fur": 69, "Fang": 28,"Eyes": 98},
             "IconIndex": 28
         },
         {
             "Name": "Right bed",
             "Description": "A bed.",
-            "Stats": [91, 17, 17],
+            "Stats": { "Fur": 91, "Fang": 17,"Eyes": 17},
             "IconIndex": 17
         },
         {
             "Name": "Right roll of masking tape",
             "Description": "A roll of masking tape.",
-            "Stats": [92, 30, 20],
+            "Stats": { "Fur": 92, "Fang": 30,"Eyes": 20},
             "IconIndex": 30
         },
         {
             "Name": "Right bookmark",
             "Description": "A bookmark.",
-            "Stats": [64, 18, 48],
+            "Stats": { "Fur": 64, "Fang": 18,"Eyes": 48},
             "IconIndex": 18
         },
         {
             "Name": "Right nail",
             "Description": "A nail.",
-            "Stats": [47, 36, 76],
+            "Stats": { "Fur": 47, "Fang": 36,"Eyes": 76},
             "IconIndex": 36
         },
         {
             "Name": "Right bottle of ink",
             "Description": "A bottle of ink.",
-            "Stats": [22, 13, 23],
+            "Stats": { "Fur": 22, "Fang": 13,"Eyes": 23},
             "IconIndex": 13
         },
         {
             "Name": "Right face wash",
             "Description": "A face wash.",
-            "Stats": [70, 4, 4],
+            "Stats": { "Fur": 70, "Fang": 4,"Eyes": 4},
             "IconIndex": 4
         },
         {
             "Name": "Right jar of peanut butter",
             "Description": "A jar of peanut butter.",
-            "Stats": [38, 31, 81],
+            "Stats": { "Fur": 38, "Fang": 31,"Eyes": 81},
             "IconIndex": 31
         },
         {
             "Name": "Right stick",
             "Description": "A stick.",
-            "Stats": [9, 6, 96],
+            "Stats": { "Fur": 9, "Fang": 6,"Eyes": 96},
             "IconIndex": 6
         },
         {
             "Name": "Right clothes",
             "Description": "A clothes.",
-            "Stats": [90, 6, 6],
+            "Stats": { "Fur": 90, "Fang": 6,"Eyes": 6},
             "IconIndex": 6
         },
         {
             "Name": "Right glass",
             "Description": "A glass.",
-            "Stats": [24, 28, 48],
+            "Stats": { "Fur": 24, "Fang": 28,"Eyes": 48},
             "IconIndex": 28
         },
         {
             "Name": "Right sidewalk",
             "Description": "A sidewalk.",
-            "Stats": [91, 15, 15],
+            "Stats": { "Fur": 91, "Fang": 15,"Eyes": 15},
             "IconIndex": 15
         },
         {
             "Name": "Right grid paper",
             "Description": "A grid paper.",
-            "Stats": [48, 20, 80],
+            "Stats": { "Fur": 48, "Fang": 20,"Eyes": 80},
             "IconIndex": 20
         },
         {
             "Name": "Right incense holder",
             "Description": "A incense holder.",
-            "Stats": [46, 35, 65],
+            "Stats": { "Fur": 46, "Fang": 35,"Eyes": 65},
             "IconIndex": 35
         },
         {
             "Name": "Right floor",
             "Description": "A floor.",
-            "Stats": [80, 0, 0],
+            "Stats": { "Fur": 80, "Fang": 0,"Eyes": 0},
             "IconIndex": 0
         },
         {
             "Name": "Right video games",
             "Description": "A video games.",
-            "Stats": [34, 28, 48],
+            "Stats": { "Fur": 34, "Fang": 28,"Eyes": 48},
             "IconIndex": 28
         },
         {
             "Name": "Right watch",
             "Description": "A watch.",
-            "Stats": [42, 3, 23],
+            "Stats": { "Fur": 42, "Fang": 3,"Eyes": 23},
             "IconIndex": 3
         },
         {
             "Name": "Right ipod",
             "Description": "A ipod.",
-            "Stats": [92, 25, 25],
+            "Stats": { "Fur": 92, "Fang": 25,"Eyes": 25},
             "IconIndex": 25
         },
         {
             "Name": "Right canvas",
             "Description": "A canvas.",
-            "Stats": [69, 32, 92],
+            "Stats": { "Fur": 69, "Fang": 32,"Eyes": 92},
             "IconIndex": 32
         },
         {
             "Name": "Right bracelet",
             "Description": "A bracelet.",
-            "Stats": [66, 8, 68],
+            "Stats": { "Fur": 66, "Fang": 8,"Eyes": 68},
             "IconIndex": 8
         }
     ]

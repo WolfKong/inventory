@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Reflection;
 
 public class InventoryCharacterPanel : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class InventoryCharacterPanel : MonoBehaviour
     public event Action RanOptimization;
 
     private Dictionary<InventoryCategory, InventorySlot> _slotsBycategory;
-    private StatsText[] _statsTexts;
+    private Dictionary<FieldInfo, StatsText> _statsByField;
     private StatsText _sumText;
 
     private void Awake()
@@ -32,30 +33,29 @@ public class InventoryCharacterPanel : MonoBehaviour
             slot.Button.onClick.AddListener(() => { ClickedSlot?.Invoke(slot.Category); });
         }
 
-        // Creates a statsText and topButton for each name and one more for their sum
-        var names = StatsNames.Names;
-        _statsTexts = new StatsText[names.Length];
+        // Creates a statsText and topButton for each stats and one more for their sum
+        _statsByField = new Dictionary<FieldInfo, StatsText>();
 
-        for (int i = 0; i < names.Length; i++)
-            _statsTexts[i] = CreateStatsText(i, names[i]);
+        foreach (var fieldInfo in typeof(ItemStats).GetFields())
+            _statsByField[fieldInfo] = CreateStatsText(fieldInfo, fieldInfo.Name);
 
-        _sumText = CreateStatsText(-1, "Sum", true);
+        _sumText = CreateStatsText(null, "Sum", true);
     }
 
     /// <summary>
     /// Creates a statsText and topButton using given parameters.
     /// </summary>
-    /// <param name="index">Index of stats.</param>
+    /// <param name="fieldInfo">FieldInfo of stats.</param>
     /// <param name="name">Name of stats.</param>
     /// <param name="isSum">Are components for displaying sum of stats?</param>
-    private StatsText CreateStatsText(int index, string name, bool isSum = false)
+    private StatsText CreateStatsText(FieldInfo fieldInfo, string name, bool isSum = false)
     {
         var statsText = Instantiate(_statsTextPrefab, _statsTextParent);
         statsText.Name.text = $"{name}:";
 
         var topButton = Instantiate<TabButton>(_topButtonsPrefab, _topButtonsParent);
         topButton.Label.text = $"Optimize {name}";
-        topButton.Button.onClick.AddListener(() => { OptimizeStats(index, isSum); });
+        topButton.Button.onClick.AddListener(() => { OptimizeStats(fieldInfo, isSum); });
 
         return statsText;
     }
@@ -71,9 +71,9 @@ public class InventoryCharacterPanel : MonoBehaviour
     /// <summary>
     /// Calculates which are the best items to maximize given stats or stats sum.
     /// </summary>
-    /// <param name="statsIndex">Index of stats to be optimized.</param>
+    /// <param name="fieldInfo">FieldInfo of stats to be optimized.</param>
     /// <param name="optimizeSum">Should optimize total of stats sum.</param>
-    private void OptimizeStats(int statsIndex, bool optimizeSum)
+    private void OptimizeStats(FieldInfo fieldInfo, bool optimizeSum)
     {
         foreach (var category in _slotsBycategory.Keys)
         {
@@ -84,7 +84,7 @@ public class InventoryCharacterPanel : MonoBehaviour
             for (int i = 0; i < itemsData.Length; i++)
             {
                 var item = itemsData[i];
-                var value = optimizeSum ? item.Stats.Sum() : item.Stats[statsIndex];
+                var value = optimizeSum ? item.Stats.Sum : (int)fieldInfo.GetValue(item.Stats);
 
                 if (value > maxValue)
                 {
@@ -104,21 +104,24 @@ public class InventoryCharacterPanel : MonoBehaviour
     /// </summary>
     private void UpdateStats()
     {
-        var totals = new int[_statsTexts.Length];
+        var totals = new Dictionary<FieldInfo, int>();
+        var fieldInfos = typeof(ItemStats).GetFields();
+
+        foreach (var fieldInfo in fieldInfos)
+            totals[fieldInfo] = 0;
 
         foreach (var category in _slotsBycategory.Keys)
         {
             if (category.SelectedData != null)
             {
-                var stats = category.SelectedData.Stats;
-                for (int i = 0; i < stats.Length; i++)
-                    totals[i] += stats[i];
+                foreach (var fieldInfo in fieldInfos)
+                    totals[fieldInfo] += (int)fieldInfo.GetValue(category.SelectedData.Stats);
             }
         }
 
-        for (int i = 0; i < _statsTexts.Length; i++)
-            _statsTexts[i].Value.text = $"{totals[i]}";
+        foreach (var pair in _statsByField)
+            pair.Value.Value.text = $"{totals[pair.Key]}";
 
-        _sumText.Value.text = $"{totals.Sum()}";
+        _sumText.Value.text = $"{totals.Values.Sum()}";
     }
 }
