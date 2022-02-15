@@ -11,6 +11,7 @@ public class InventoryCharacterPanel : MonoBehaviour
     [SerializeField] private Transform _statsTextParent;
     [SerializeField] private TabButton _topButtonsPrefab;
     [SerializeField] private Transform _topButtonsParent;
+    [SerializeField] private SpriteProvider _spriteProvider;
 
     public event Action<InventoryCategory> ClickedSlot;
     public event Action RanOptimization;
@@ -60,10 +61,10 @@ public class InventoryCharacterPanel : MonoBehaviour
         return statsText;
     }
 
-    public void UpdateCategory(InventoryCategory category, InventoryItemData itemData, Sprite[] _icons)
+    public void UpdateCategory(InventoryCategory category, InventoryItemData itemData)
     {
         if (_slotsBycategory.ContainsKey(category))
-            _slotsBycategory[category].Icon.sprite = _icons[itemData.IconIndex];
+            _slotsBycategory[category].Icon.sprite = _spriteProvider.GetIcon(itemData.IconIndex);
 
         UpdateStats();
     }

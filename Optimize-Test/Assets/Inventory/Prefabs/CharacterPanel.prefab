@@ -419,6 +419,7 @@ MonoBehaviour:
   _statsTextParent: {fileID: 5448056304211673648}
   _topButtonsPrefab: {fileID: 1966268431643387742, guid: 73756092263d5394abe5fb1ab8046898, type: 3}
   _topButtonsParent: {fileID: 5230427819591696383}
+  _spriteProvider: {fileID: 11400000, guid: bc4669535532a9a48ba97574551cc858, type: 2}
 --- !u!1 &9213946911483965007
 GameObject:
   m_ObjectHideFlags: 0

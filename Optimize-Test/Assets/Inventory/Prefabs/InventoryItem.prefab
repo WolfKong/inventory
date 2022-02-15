@@ -342,8 +342,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _background: {fileID: 3524837759571232111}
-  Icon: {fileID: 8701206775993556585}
-  Name: {fileID: 3476356805178039162}
+  _icon: {fileID: 8701206775993556585}
+  _name: {fileID: 3476356805178039162}
+  _spriteProvider: {fileID: 11400000, guid: bc4669535532a9a48ba97574551cc858, type: 2}
   Button: {fileID: 5462570301140289662}
 --- !u!1 &6094784086906774804
 GameObject:
