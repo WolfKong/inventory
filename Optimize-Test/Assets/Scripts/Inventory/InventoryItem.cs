@@ -5,9 +5,16 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour
 {
     [SerializeField] private Image _background;
-    public Image Icon;
-    public TextMeshProUGUI Name;
+    [SerializeField] private Image _icon;
+    [SerializeField] private TextMeshProUGUI _name;
+    [SerializeField] private SpriteProvider _spriteProvider;
     public Button Button;
+
+    public void SetData(InventoryItemData data)
+    {
+        _icon.sprite = _spriteProvider.GetIcon(data.IconIndex);
+        _name.text = data.Name;
+    }
 
     public void Highlight(bool selected)
     {

@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -111}
-  m_SizeDelta: {x: 160, y: 190}
+  m_AnchoredPosition: {x: 30, y: -100}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &364135167500992645
 MonoBehaviour:
@@ -222,9 +222,9 @@ MonoBehaviour:
   m_fontSize: 32
   m_fontSizeBase: 32
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 36
+  m_fontSizeMax: 32
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
   m_MinWidth: -1
-  m_MinHeight: 30
+  m_MinHeight: 25
   m_PreferredWidth: -1
   m_PreferredHeight: 42
   m_FlexibleWidth: -1
@@ -419,6 +419,7 @@ MonoBehaviour:
   _statsTextParent: {fileID: 5448056304211673648}
   _topButtonsPrefab: {fileID: 1966268431643387742, guid: 73756092263d5394abe5fb1ab8046898, type: 3}
   _topButtonsParent: {fileID: 5230427819591696383}
+  _spriteProvider: {fileID: 11400000, guid: bc4669535532a9a48ba97574551cc858, type: 2}
 --- !u!1 &9213946911483965007
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,7 +580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5524603728521776663, guid: cf16a55e463b70645a05fdd7cb940ae2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 95
+      value: 88
       objectReference: {fileID: 0}
     - target: {fileID: 5524603728521776663, guid: cf16a55e463b70645a05fdd7cb940ae2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -923,7 +924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5524603728521776663, guid: cf16a55e463b70645a05fdd7cb940ae2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 95
+      value: 88
       objectReference: {fileID: 0}
     - target: {fileID: 5524603728521776663, guid: cf16a55e463b70645a05fdd7cb940ae2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

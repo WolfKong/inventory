@@ -17,9 +17,6 @@ public class InventoryManager : MonoBehaviour
     [Tooltip("This is used in generating the items list. The number of additional copies to concat the list parsed from ItemJson.")]
     [SerializeField] private int _itemGenerateScale = 10;
 
-    [Tooltip("Icons referenced by ItemData.IconIndex when instantiating new items.")]
-    [SerializeField] private Sprite[] _icons;
-
     private Dictionary<InventoryCategory, TabButton> _tabsByCategory;
     private ScrollPool<InventoryItem> _scrollPool;
     private InventoryCategory _selectedCategory;
@@ -70,9 +67,8 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     private void InitializeItem(InventoryItem item, int index)
     {
-        var itemData = _selectedCategory.ItemsData[index];
-        item.Icon.sprite = _icons[itemData.IconIndex];
-        item.Name.text = itemData.Name;
+        item.SetData(_selectedCategory.ItemsData[index]);
+
         item.Button.onClick.RemoveAllListeners();
         item.Button.onClick.AddListener(() => { SelectItem(item, index); });
 
@@ -89,7 +85,7 @@ public class InventoryManager : MonoBehaviour
     private void UpdateAllDisplays()
     {
         foreach (var category in _inventoryCategories)
-            _characterPanel.UpdateCategory(category, category.SelectedData, _icons);
+            _characterPanel.UpdateCategory(category, category.SelectedData);
 
         UpdateList();
 
@@ -149,6 +145,6 @@ public class InventoryManager : MonoBehaviour
         var itemData = _selectedCategory.ItemsData[index];
         _infoPanel.SetData(itemData);
         _selectedCategory.SelectedIndex = index;
-        _characterPanel.UpdateCategory(_selectedCategory, itemData, _icons);
+        _characterPanel.UpdateCategory(_selectedCategory, itemData);
     }
 }
